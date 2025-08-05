@@ -1,0 +1,1611 @@
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+406  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+455  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+455  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+481  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22364 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+6904067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@62ab7a50]
+6904070 [Objects-Adder] INFO  ca.sqlpower.architect.swingui.PlayPen  - AddObjectsTask starting on thread Objects-Adder
+6904071 [Objects-Adder] INFO  ca.sqlpower.architect.swingui.PlayPen  - AddObjectsTask done
+6904084 [AWT-EventQueue-0] ERROR ca.sqlpower.architect.swingui.PlayPen  - Unknown object dropped in PlayPen: id: INTEGER
+7017907 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown column property referenceCount changed while monitoring pkTable
+7017907 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown column property referenceCount changed while monitoring pkTable
+7017907 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown column property referenceCount changed while monitoring pkTable
+7031513 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@62ab7a50]
+9265317 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@62ab7a50]
+9266369 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@62ab7a50]
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+312  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+358  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+358  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+384  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22710 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+309519 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@3bb1042f]
+698651 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.DBTree  - DBTree: exporting list of DnD-type tree paths
+699693 [Objects-Adder] INFO  ca.sqlpower.architect.swingui.PlayPen  - AddObjectsTask starting on thread Objects-Adder
+699695 [Objects-Adder] INFO  ca.sqlpower.architect.swingui.PlayPen  - AddObjectsTask done
+699708 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - adding table requisitos_1 (TABLE)
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+330  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+375  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+375  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+401  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22237 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+638113 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown column property referenceCount changed while monitoring pkTable
+805456 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE TABLE requisitos (
+                id INT NOT NULL,
+                nome VARCHAR NOT NULL,
+                descrio VARCHAR NOT NULL,
+                PRIMARY KEY (id)
+)
+805457 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                objetvo TEXT NOT NULL,
+                status TINYINT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+805457 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE documnetos (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+805457 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                quantidade INT NOT NULL,
+                projetos_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+805457 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE imagens (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+805457 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE grupos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+805457 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                matricula VARCHAR(255) NOT NULL,
+                senha VARCHAR NOT NULL,
+                foto VARCHAR(255),
+                grupo_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+805458 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes_requisitos_usuarios (
+                id INT NOT NULL,
+                funcoe_id INT,
+                requisito_id INT NOT NULL,
+                usuarios_id INT,
+                PRIMARY KEY (id)
+)
+805458 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_projetos_funcoes (
+                id INT NOT NULL,
+                usuario_id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+805458 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER TABLE funcoes_requisitos_usuarios ADD CONSTRAINT requisitos_funcoes_requisitos_fk
+FOREIGN KEY (requisito_id)
+REFERENCES requisitos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805458 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE imagens ADD CONSTRAINT projetos_imagens_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805458 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes ADD CONSTRAINT projetos_funcoes_fk
+FOREIGN KEY (projetos_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE documnetos ADD CONSTRAINT projetos_documnetos_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_projetos_funcoes ADD CONSTRAINT projetos_usuarios_projetos_funcoes_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_projetos_funcoes ADD CONSTRAINT funcoes_usuarios_funcoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_requisitos_usuarios ADD CONSTRAINT funcoes_funcoes_requisitos_fk
+FOREIGN KEY (funcoe_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios ADD CONSTRAINT grupos_usuarios_fk
+FOREIGN KEY (grupo_id)
+REFERENCES grupos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_projetos_funcoes ADD CONSTRAINT usuarios_usuarios_funcoes_fk
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_requisitos_usuarios ADD CONSTRAINT usuarios_funcoes_requisitos_usuarios_fk
+FOREIGN KEY (usuarios_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+805463 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :19
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+351  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+404  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+404  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+432  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+335  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+381  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+381  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+407  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+14904 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE TABLE requisitos (
+                id INT NOT NULL,
+                nome VARCHAR NOT NULL,
+                descricao LONGNVARCHAR NOT NULL,
+                PRIMARY KEY (id)
+)
+14904 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                objetvo TEXT NOT NULL,
+                status TINYINT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+14905 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE documentos (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+14905 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                quantidade INT NOT NULL,
+                projetos_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+14905 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE imagens (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+14905 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE grupos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+14906 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios (
+                id INT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                matricula VARCHAR(255) NOT NULL,
+                senha VARCHAR(255) NOT NULL,
+                foto VARCHAR(255),
+                grupo_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+14906 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes_requisitos_usuarios (
+                id INT NOT NULL,
+                funcoe_id INT,
+                requisito_id INT NOT NULL,
+                usuarios_id INT,
+                PRIMARY KEY (id)
+)
+14906 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_projetos_funcoes (
+                id INT NOT NULL,
+                usuario_id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+14906 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER TABLE funcoes_requisitos_usuarios ADD CONSTRAINT requisitos_funcoes_requisitos_fk
+FOREIGN KEY (requisito_id)
+REFERENCES requisitos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14906 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE imagens ADD CONSTRAINT projetos_imagens_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14907 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes ADD CONSTRAINT projetos_funcoes_fk
+FOREIGN KEY (projetos_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14907 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE documentos ADD CONSTRAINT projetos_documnetos_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14907 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_projetos_funcoes ADD CONSTRAINT projetos_usuarios_projetos_funcoes_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14907 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_projetos_funcoes ADD CONSTRAINT funcoes_usuarios_funcoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14907 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_requisitos_usuarios ADD CONSTRAINT funcoes_funcoes_requisitos_fk
+FOREIGN KEY (funcoe_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14907 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios ADD CONSTRAINT grupos_usuarios_fk
+FOREIGN KEY (grupo_id)
+REFERENCES grupos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14907 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_projetos_funcoes ADD CONSTRAINT usuarios_usuarios_funcoes_fk
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14908 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_requisitos_usuarios ADD CONSTRAINT usuarios_funcoes_requisitos_usuarios_fk
+FOREIGN KEY (usuarios_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+14911 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :19
+22119 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+314  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+363  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+363  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+389  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22187 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+402  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+453  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+453  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+482  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+23583 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+1314 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+1454 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+1454 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+1519 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22965 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+673013 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+673013 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+673013 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+673013 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+676566 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+686499 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+686499 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+686499 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+686499 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+686499 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+686499 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+686499 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+686499 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+717875 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+717875 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+723637 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+723646 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+723646 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown SQLTypePhysicalProperties property name changed while monitoring pkTable
+723646 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown UserDefinedSQLType property myAutoIncrement changed while monitoring pkTable
+742199 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@180bf76f]
+795638 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.DBTree  - DBTree: exporting list of DnD-type tree paths
+797658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@180bf76f]
+1082901 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@180bf76f]
+1861238 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.DBTree  - DBTree: exporting list of DnD-type tree paths
+1864542 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@180bf76f]
+1951077 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.DBTree  - DBTree: exporting list of DnD-type tree paths
+1971924 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@180bf76f]
+4714971 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.DBTree  - DBTree: exporting list of DnD-type tree paths
+4717881 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.DBTree  - DBTree: exporting list of DnD-type tree paths
+4718470 [Objects-Adder] INFO  ca.sqlpower.architect.swingui.PlayPen  - AddObjectsTask starting on thread Objects-Adder
+4718480 [Objects-Adder] INFO  ca.sqlpower.architect.swingui.PlayPen  - AddObjectsTask done
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - adding table funcoes_habilidades_1 (TABLE)
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Looking for fk table funcoes_habilidades in playpen
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - NOT FOUND
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Looking for fk table funcoes_habilidades in playpen
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - NOT FOUND
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Looking for fk table funcoes_habilidades in playpen
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - NOT FOUND
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Looking for fk table funcoes_habilidades in playpen
+4718530 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - NOT FOUND
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE TABLE habilidades (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                objetvo VARCHAR(500) NOT NULL,
+                texto TEXT,
+                banner VARCHAR(255),
+                status TINYINT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE documentos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                quantidade INT NOT NULL,
+                projetos_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes_habilidades (
+                id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE imagens (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE grupos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                matricula VARCHAR(255) NOT NULL,
+                senha VARCHAR(255) NOT NULL,
+                foto VARCHAR(255),
+                grupo_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE notificacoes (
+                id INT NOT NULL,
+                usuario_id_emissor INT NOT NULL,
+                usuario_id_remetente INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                aceite INT DEFAULT 2 NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+11737811 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_habilidades (
+                id INT NOT NULL,
+                usuario_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                usuario_id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                editor BOOLEAN DEFAULT 0 NOT NULL,
+                PRIMARY KEY (id)
+)
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT habilidades_funcoes_requisitos_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT habilidades_usuarios_funcoes_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE imagens ADD CONSTRAINT projetos_imagens_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes ADD CONSTRAINT projetos_funcoes_fk
+FOREIGN KEY (projetos_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE documentos ADD CONSTRAINT projetos_documnetos_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT funcoes_usuarios_funcoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT funcoes_funcoes_requisitos_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT funcoes_notificacoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios ADD CONSTRAINT grupos_usuarios_fk
+FOREIGN KEY (grupo_id)
+REFERENCES grupos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT usuarios_usuarios_funcoes_fk
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT usuarios_usuarios_funcoes_fk1
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk
+FOREIGN KEY (usuario_id_emissor)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737821 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk1
+FOREIGN KEY (usuario_id_remetente)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11737831 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :24
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE TABLE habilidades (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                objetvo VARCHAR(500) NOT NULL,
+                texto TEXT,
+                banner VARCHAR(255),
+                status TINYINT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE documentos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                quantidade INT NOT NULL,
+                projetos_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes_habilidades (
+                id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE imagens (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE grupos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                matricula VARCHAR(255) NOT NULL,
+                senha VARCHAR(255) NOT NULL,
+                foto VARCHAR(255),
+                grupo_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE notificacoes (
+                id INT NOT NULL,
+                usuario_id_emissor INT NOT NULL,
+                usuario_id_remetente INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                aceite INT DEFAULT 2 NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_habilidades (
+                id INT NOT NULL,
+                usuario_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                usuario_id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                editor BOOLEAN DEFAULT 0 NOT NULL,
+                PRIMARY KEY (id)
+)
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT habilidades_funcoes_requisitos_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT habilidades_usuarios_funcoes_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE imagens ADD CONSTRAINT projetos_imagens_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes ADD CONSTRAINT projetos_funcoes_fk
+FOREIGN KEY (projetos_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE documentos ADD CONSTRAINT projetos_documnetos_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT funcoes_usuarios_funcoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT funcoes_funcoes_requisitos_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT funcoes_notificacoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios ADD CONSTRAINT grupos_usuarios_fk
+FOREIGN KEY (grupo_id)
+REFERENCES grupos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT usuarios_usuarios_funcoes_fk
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT usuarios_usuarios_funcoes_fk1
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk
+FOREIGN KEY (usuario_id_emissor)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk1
+FOREIGN KEY (usuario_id_remetente)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+11801025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :24
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+328  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+381  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+381  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+409  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22141 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+161733 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.DBTree  - DBTree: exporting list of DnD-type tree paths
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+475  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+525  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+527  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+554  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22749 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+1487458 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE TABLE categorias (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR NOT NULL,
+                PRIMARY KEY (id)
+)
+1487459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE habilidades (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+1487459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                objetvo VARCHAR(500) NOT NULL,
+                aprovado BOOLEAN DEFAULT 0 NOT NULL,
+                texto TEXT,
+                banner VARCHAR(255),
+                status TINYINT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1487459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos_categorias (
+                id INT NOT NULL,
+                projeto_id INT NOT NULL,
+                categoria_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1487459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE documentos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1487459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                quantidade INT NOT NULL,
+                projetos_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1487459 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes_habilidades (
+                id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1487461 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE imagens (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1487461 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE grupos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+1487461 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                matricula VARCHAR(255) NOT NULL,
+                senha VARCHAR(255) NOT NULL,
+                foto VARCHAR(255),
+                grupo_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1487461 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE notificacoes (
+                id INT NOT NULL,
+                usuario_id_emissor INT NOT NULL,
+                usuario_id_remetente INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                aceite INT DEFAULT 2 NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1487461 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_habilidades (
+                id INT NOT NULL,
+                usuario_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1487461 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                usuario_id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                editor BOOLEAN DEFAULT 0 NOT NULL,
+                PRIMARY KEY (id)
+)
+1487462 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER TABLE projetos_categorias ADD CONSTRAINT categorias_projetos_categorias_fk
+FOREIGN KEY (categoria_id)
+REFERENCES categorias (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487462 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT habilidades_funcoes_requisitos_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487462 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT habilidades_usuarios_funcoes_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487462 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE imagens ADD CONSTRAINT projetos_imagens_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487462 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes ADD CONSTRAINT projetos_funcoes_fk
+FOREIGN KEY (projetos_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487462 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE documentos ADD CONSTRAINT projetos_documnetos_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487463 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE projetos_categorias ADD CONSTRAINT projetos_projetos_categorias_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487463 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT funcoes_usuarios_funcoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487463 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT funcoes_funcoes_requisitos_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487463 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT funcoes_notificacoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487463 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios ADD CONSTRAINT grupos_usuarios_fk
+FOREIGN KEY (grupo_id)
+REFERENCES grupos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487463 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT usuarios_usuarios_funcoes_fk
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487464 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT usuarios_usuarios_funcoes_fk1
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487464 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk
+FOREIGN KEY (usuario_id_emissor)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487464 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk1
+FOREIGN KEY (usuario_id_remetente)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1487468 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :28
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+367  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+429  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+431  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+458  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22220 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+1399737 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE TABLE categorias (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR NOT NULL,
+                PRIMARY KEY (id)
+)
+1399738 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE habilidades (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+1399738 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                objetvo VARCHAR(500) NOT NULL,
+                aprovado BOOLEAN DEFAULT 0 NOT NULL,
+                texto TEXT,
+                banner VARCHAR(255),
+                status TINYINT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1399738 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos_categorias (
+                id INT NOT NULL,
+                projeto_id INT NOT NULL,
+                categoria_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1399738 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE documentos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1399738 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                quantidade INT NOT NULL,
+                projetos_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1399739 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes_habilidades (
+                id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1399739 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE imagens (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1399739 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE grupos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+1399739 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                matricula VARCHAR(255) NOT NULL,
+                senha VARCHAR(255) NOT NULL,
+                foto VARCHAR(255),
+                grupo_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1399739 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE notificacoes (
+                id INT NOT NULL,
+                usuario_id_emissor INT NOT NULL,
+                usuario_id_remetente INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                aceite INT DEFAULT 2 NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1399740 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_habilidades (
+                id INT NOT NULL,
+                usuario_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1399740 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                usuario_id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                editor BOOLEAN DEFAULT 0 NOT NULL,
+                PRIMARY KEY (id)
+)
+1399740 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER TABLE projetos_categorias ADD CONSTRAINT categorias_projetos_categorias_fk
+FOREIGN KEY (categoria_id)
+REFERENCES categorias (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399740 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT habilidades_funcoes_requisitos_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399740 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT habilidades_usuarios_funcoes_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399740 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE imagens ADD CONSTRAINT projetos_imagens_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399741 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes ADD CONSTRAINT projetos_funcoes_fk
+FOREIGN KEY (projetos_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399741 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE documentos ADD CONSTRAINT projetos_documnetos_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399741 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE projetos_categorias ADD CONSTRAINT projetos_projetos_categorias_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399741 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT funcoes_usuarios_funcoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399741 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT funcoes_funcoes_requisitos_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399741 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT funcoes_notificacoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399742 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios ADD CONSTRAINT grupos_usuarios_fk
+FOREIGN KEY (grupo_id)
+REFERENCES grupos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399742 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT usuarios_usuarios_funcoes_fk
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399742 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT usuarios_usuarios_funcoes_fk1
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399742 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk
+FOREIGN KEY (usuario_id_emissor)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399742 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk1
+FOREIGN KEY (usuario_id_remetente)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1399745 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :28
+1443156 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE TABLE categorias (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR NOT NULL,
+                PRIMARY KEY (id)
+)
+1443156 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE habilidades (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                objetvo VARCHAR(500) NOT NULL,
+                aprovado BOOLEAN DEFAULT 0 NOT NULL,
+                texto TEXT,
+                banner VARCHAR(255),
+                status TINYINT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE projetos_categorias (
+                id INT NOT NULL,
+                projeto_id INT NOT NULL,
+                categoria_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE documentos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL,
+                quantidade INT NOT NULL,
+                projetos_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE funcoes_habilidades (
+                id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE imagens (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                projeto_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE grupos (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios (
+                id INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                matricula VARCHAR(255) NOT NULL,
+                senha VARCHAR(255) NOT NULL,
+                foto VARCHAR(255),
+                grupo_id INT NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE notificacoes (
+                id INT NOT NULL,
+                usuario_id_emissor INT NOT NULL,
+                usuario_id_remetente INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                aceite INT DEFAULT 2 NOT NULL,
+                created DATETIME NOT NULL,
+                modified DATETIME NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_habilidades (
+                id INT NOT NULL,
+                usuario_id INT NOT NULL,
+                habilidade_id INT NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE usuarios_funcoes (
+                id INT AUTO_INCREMENT NOT NULL,
+                usuario_id INT NOT NULL,
+                funcoes_id INT NOT NULL,
+                editor BOOLEAN DEFAULT 0 NOT NULL,
+                PRIMARY KEY (id)
+)
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER TABLE projetos_categorias ADD CONSTRAINT categorias_projetos_categorias_fk
+FOREIGN KEY (categoria_id)
+REFERENCES categorias (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT habilidades_funcoes_requisitos_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT habilidades_usuarios_funcoes_fk
+FOREIGN KEY (habilidade_id)
+REFERENCES habilidades (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE imagens ADD CONSTRAINT projetos_imagens_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes ADD CONSTRAINT projetos_funcoes_fk
+FOREIGN KEY (projetos_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE documentos ADD CONSTRAINT projetos_documnetos_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE projetos_categorias ADD CONSTRAINT projetos_projetos_categorias_fk
+FOREIGN KEY (projeto_id)
+REFERENCES projetos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT funcoes_usuarios_funcoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE funcoes_habilidades ADD CONSTRAINT funcoes_funcoes_requisitos_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT funcoes_notificacoes_fk
+FOREIGN KEY (funcoes_id)
+REFERENCES funcoes (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios ADD CONSTRAINT grupos_usuarios_fk
+FOREIGN KEY (grupo_id)
+REFERENCES grupos (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_funcoes ADD CONSTRAINT usuarios_usuarios_funcoes_fk
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE usuarios_habilidades ADD CONSTRAINT usuarios_usuarios_funcoes_fk1
+FOREIGN KEY (usuario_id)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk
+FOREIGN KEY (usuario_id_emissor)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE notificacoes ADD CONSTRAINT usuarios_notificacoes_fk1
+FOREIGN KEY (usuario_id_remetente)
+REFERENCES usuarios (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+1443166 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :28
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+322  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+371  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+371  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+401  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+23066 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+1405 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+1453 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+1453 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+1493 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+24443 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+3222 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+3435 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+3443 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+3541 [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+27548 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
