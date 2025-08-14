@@ -137,4 +137,25 @@ class FuncoesController extends AppController
 
         return $this->redirect(['controller' => 'Projetos', 'action' => 'view', $projeto_id]);
     }
+
+    public function candidatar($id)
+    {
+        $this->viewBuilder()->disableAutoLayout();
+
+        $usuarioLogado = $this->request->getAttribute('identity');
+        $habilidadesUsuario = $this->Funcoes->Habilidades->find()->select(['habilidades.id'])
+            ->matching('Usuarios', function ($q) use ($usuarioLogado) {
+                return $q->where(['Usuarios.id' => $usuarioLogado->id]);
+            })
+            ->toArray();
+
+        $habilidadesUsuario = array_map(function($h) {
+            return $h->habilidades['id'];
+        }, $habilidadesUsuario);
+
+        $funcao = $this->Funcoes->find()->where(['funcoes.id' => $id])->contain(['Habilidades', 'Usuarios', 'Projetos'])->first();
+
+
+        $this->set(compact('funcao','habilidadesUsuario'));
+    }
 }

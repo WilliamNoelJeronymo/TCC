@@ -58,6 +58,7 @@ class ProjetosController extends AppController
     public function view($id = null)
     {
         $projeto = $this->Projetos->get($id, contain: ['Documentos', 'Imagens', 'Funcoes' => ['Usuarios']]);
+        $usuarioLogado = $this->request->getAttribute('identity');
 
         foreach ($projeto->funcoes as $funcao) {
             foreach ($funcao->usuarios as $usuario) {
@@ -73,6 +74,11 @@ class ProjetosController extends AppController
                 $membros[$usuario->id]['funcoes'][] = $funcao->nome;
             }
         }
+        if (isset($membros[$usuarioLogado->id])) {
+            $ehMembro = true;
+        } else {
+            $ehMembro = false;
+        }
         $funcoes = $this->Projetos->Funcoes->find()
             ->select([
                 'Funcoes.id',
@@ -87,7 +93,7 @@ class ProjetosController extends AppController
             ->groupBy(['Funcoes.id', 'Funcoes.nome']) // Agrupa corretamente
             ->toArray();
 
-        $this->set(compact('projeto', 'membros', 'funcoes'));
+        $this->set(compact('projeto', 'membros', 'funcoes', 'ehMembro'));
     }
 
     /**
@@ -206,24 +212,4 @@ class ProjetosController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function candidatar($projeto_id)
-    {
-        $this->viewBuilder()->disableAutoLayout();
-
-        $projeto = $this->Projetos->find()->where(['id'=>$projeto_id])->contain(['Funcoes.Usuarios'])->first();
-
-        // Remove funções 'Líder' e 'Orientador'
-        $projeto->funcoes = array_values(array_filter($projeto->funcoes, function ($funcao) {
-            return !in_array(strtolower($funcao->nome), ['líder', 'lider', 'orientador']);
-        }));
-
-        // Calcula vagas disponíveis
-        $projeto->total_vagas_disponiveis = 0;
-        foreach ($projeto->funcoes as $funcao) {
-            $funcao->vagas_disponiveis = max(0, $funcao->quantidade - count($funcao->usuarios));
-            $projeto->total_vagas_disponiveis += $funcao->vagas_disponiveis;
-        }
-
-        $this->set(compact('projeto'));
-    }
 }
