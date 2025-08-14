@@ -205,4 +205,25 @@ class ProjetosController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function candidatar($projeto_id)
+    {
+        $this->viewBuilder()->disableAutoLayout();
+
+        $projeto = $this->Projetos->find()->where(['id'=>$projeto_id])->contain(['Funcoes.Usuarios'])->first();
+
+        // Remove funções 'Líder' e 'Orientador'
+        $projeto->funcoes = array_values(array_filter($projeto->funcoes, function ($funcao) {
+            return !in_array(strtolower($funcao->nome), ['líder', 'lider', 'orientador']);
+        }));
+
+        // Calcula vagas disponíveis
+        $projeto->total_vagas_disponiveis = 0;
+        foreach ($projeto->funcoes as $funcao) {
+            $funcao->vagas_disponiveis = max(0, $funcao->quantidade - count($funcao->usuarios));
+            $projeto->total_vagas_disponiveis += $funcao->vagas_disponiveis;
+        }
+
+        $this->set(compact('projeto'));
+    }
 }

@@ -52,12 +52,24 @@
                         </div>
                     <?php endforeach; ?>
                     <div class="d-flex justify-content-between">
-                        <p class="texto-menor text-blue"><?=$projeto->orientador ?'Prof. '.$projeto->orientador:'Sem Orientador'?></p>
+                        <p class="texto-menor text-blue"><?= $projeto->orientador ? 'Prof. ' . $projeto->orientador : 'Sem Orientador' ?></p>
                         <?= $this->Html->link(
                             'Candidatar-se',
                             ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
-                            ['class' => 'btn btn-primary btn-sm']
+                            [
+                                'escape' => false,
+                                'class' => 'btn btn-primary btn-sm ',
+                            ]
                         ) ?>
+                        <!--                        --><?php //= $this->Html->link(
+                        //                            'Candidatar-se',
+                        //                            ['controller' => 'Projetos', 'action' => 'candidatar', $projeto->id],
+                        //                            [
+                        //                                'escape' => false,
+                        //                                'class' => 'btn btn-primary btn-sm toolTipOpen',
+                        //                                'title' => 'Visualizar', 'data-toggle' => 'modal', 'data-target' => '.view'
+                        //                            ]
+                        //                        ) ?>
                     </div>
                 </div>
             </div>
