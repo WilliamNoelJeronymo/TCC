@@ -47,4 +47,19 @@ class AppController extends Controller
         $this->viewBuilder()->setLayout('aluno');
 
     }
+    public function beforeRender(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeRender($event);
+
+        $Notificacoes = $this->fetchTable('Notificacoes');
+
+        $usuario = $this->Authentication->getIdentity();
+
+        $minhasNotificacoes = $Notificacoes
+            ->find()
+            ->where(['usuario_id_remetente' => $usuario->id])
+        ->contain(['UsuariosEmissor','Funcoes'=>'Projetos']);
+
+        $this->set(compact('usuario', 'minhasNotificacoes'));
+    }
 }

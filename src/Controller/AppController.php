@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Controller\Controller;
@@ -49,10 +50,6 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
-    public function beforeRender(\Cake\Event\EventInterface $event)
-    {
-        parent::beforeRender($event);
-        $usuario = $this->Authentication->getIdentity();
-        $this->set('usuario', $usuario);
-    }
+
+
 }
