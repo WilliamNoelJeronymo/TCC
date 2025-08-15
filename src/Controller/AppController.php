@@ -49,4 +49,10 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
+    public function beforeRender(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeRender($event);
+        $usuario = $this->Authentication->getIdentity();
+        $this->set('usuario', $usuario);
+    }
 }

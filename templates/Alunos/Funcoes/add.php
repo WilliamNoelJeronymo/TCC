@@ -5,27 +5,30 @@
  * @var \Cake\Collection\CollectionInterface|string[] $projetos
  */
 ?>
+
+<?= $this->Form->create($funco) ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Funcoes'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+    <div class="col-md-6">
+        <div class="form-group">
+            <?=$this->Form->control('nome',['class'=>'form-control']);?>
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="funcoes form content">
-            <?= $this->Form->create($funco) ?>
-            <fieldset>
-                <legend><?= __('Add Funco') ?></legend>
-                <?php
-                    echo $this->Form->control('nome');
-                    echo $this->Form->control('descricao');
-                    echo $this->Form->control('quantidade');
-                    echo $this->Form->control('projetos_id', ['options' => $projetos]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <?=$this->Form->control('quantidade',['label'=>'Quantidade de Pessoas','class'=>'form-control']);?>
         </div>
     </div>
 </div>
+
+<div class="form-group">
+    <?=$this->Form->control('descricao',['label'=>'Descrição da função','class'=>'form-control']);?>
+</div>
+<div class="form-group">
+
+    <?=$this->Form->control('habilidades._ids',['options' => $habilidades,'label'=>'Seleciona as habilidades desejáveis','class'=>'form-control']);?>
+</div>
+<div class="text-right">
+    <?=$this->Html->link('Cancelar',['controller'=>'Projetos','action'=>'index',$projeto_id],['class'=>'btn btn-default'])?>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</div>
+<?= $this->Form->end() ?>

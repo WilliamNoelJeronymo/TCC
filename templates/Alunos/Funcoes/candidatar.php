@@ -14,8 +14,8 @@
 <div class="modal-body view-detalhes">
 
     <div class="view-detalhes">
-        <h5>Vaga: <?=$funcao->nome?></h5>
-        <p><?=$funcao->descricao?></p>
+        <h5>Vaga: <?= $funcao->nome ?></h5>
+        <p><?= $funcao->descricao ?></p>
         <h5>Requisitos desejáveis</h5>
         <div class="accordion">
             <?php foreach ($funcao->habilidades as $habilidade): ?>
@@ -24,8 +24,16 @@
         </div>
     </div>
 </div>
+<?php if($jaAplicou): ?>
+<div class="d-flex w-100 justify-content-center align-items-center flex-column pl-5 pr-5 pb-5">
+    <p>Você ja aplicou para está vaga, deseja cancelar sua aplicaçao?</p>
+    <?=$this->Html->link('Cancelar Inscrição',['controller'=>'Notificacoes', 'action'=>'delete',$funcao->id],['class'=>'btn btn-outline-danger w-100'])?>
+</div>
+
+<?php else:?>
+
 <?= $this->Form->create(null, [
-    'url' => ['controller' => 'Notificacoes', 'action' => 'add'],
+    'url' => ['controller' => 'Notificacoes', 'action' => 'add',$lider->id,$funcao->projeto->id,$funcao->id],
     'class' => 'pl-4 pr-4 pb-4'
 ]) ?>
 <div class="form-group">
@@ -35,7 +43,7 @@
     <button type="submit" class="btn btn-success">Enviar Solicitação</button>
 </div>
 <?= $this->Form->end() ?>
-
+<?php endif; ?>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
 </div>

@@ -24,8 +24,9 @@ class NotificacoesFixture extends TestFixture
                 'usuario_id_remetente' => 1,
                 'funcoes_id' => 1,
                 'aceite' => 1,
-                'created' => '2025-03-08 00:52:52',
-                'modified' => '2025-03-08 00:52:52',
+                'mensagem' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'created' => '2025-08-14 22:33:30',
+                'modified' => '2025-08-14 22:33:30',
             ],
         ];
         parent::init();

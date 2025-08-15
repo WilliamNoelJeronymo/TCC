@@ -31,7 +31,7 @@ class FuncoesController extends AppController
             ->groupBy(['Funcoes.id', 'Funcoes.nome']) // Agrupa corretamente
             ->toArray();
 
-        $this->set(compact('funcoes'));
+        $this->set(compact('funcoes','projeto_id'));
     }
 
     /**
@@ -52,20 +52,27 @@ class FuncoesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($projeto_id)
     {
         $funco = $this->Funcoes->newEmptyEntity();
         if ($this->request->is('post')) {
             $funco = $this->Funcoes->patchEntity($funco, $this->request->getData());
+            $funco->projetos_id = $projeto_id;
             if ($this->Funcoes->save($funco)) {
-                $this->Flash->success(__('The funco has been saved.'));
+                $this->Flash->success(__('Função criada com sucesso!'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index',$projeto_id]);
             }
-            $this->Flash->error(__('The funco could not be saved. Please, try again.'));
+            $this->Flash->error(__('Houve um erro ao criar a função. Por favor, tente novamente'));
         }
-        $projetos = $this->Funcoes->Projetos->find('list', limit: 200)->all();
-        $this->set(compact('funco', 'projetos'));
+        $habilidades = $this->Funcoes->Habilidades
+            ->find('list', [
+                'keyField' => 'id',   // índice do array
+                'valueField' => 'nome'    // valor exibido
+            ])
+            ->limit(200)
+            ->all();
+        $this->set(compact('funco', 'projeto_id','habilidades'));
     }
 
     /**
@@ -141,21 +148,35 @@ class FuncoesController extends AppController
     public function candidatar($id)
     {
         $this->viewBuilder()->disableAutoLayout();
-
+        $Notificacoes = $this->fetchTable('Notificacoes');
         $usuarioLogado = $this->request->getAttribute('identity');
+
         $habilidadesUsuario = $this->Funcoes->Habilidades->find()->select(['habilidades.id'])
             ->matching('Usuarios', function ($q) use ($usuarioLogado) {
                 return $q->where(['Usuarios.id' => $usuarioLogado->id]);
             })
             ->toArray();
 
-        $habilidadesUsuario = array_map(function($h) {
+        $habilidadesUsuario = array_map(function ($h) {
             return $h->habilidades['id'];
         }, $habilidadesUsuario);
 
         $funcao = $this->Funcoes->find()->where(['funcoes.id' => $id])->contain(['Habilidades', 'Usuarios', 'Projetos'])->first();
 
+        $projetoId = $funcao->projeto->id;
+        $lider = null;
+        $jaAplicou = $Notificacoes
+            ->exists(['usuario_id_emissor' => $usuarioLogado->id,'funcoes_id'=>$id]);
 
-        $this->set(compact('funcao','habilidadesUsuario'));
+        if ($projetoId) {
+            $lider = $this->Funcoes->find()
+                ->contain(['Usuarios'])
+                ->where([
+                    'Funcoes.projetos_id' => $projetoId,
+                    'Funcoes.nome' => 'Lider'
+                ])
+                ->first()?->usuarios[0];
+        }
+        $this->set(compact('funcao', 'habilidadesUsuario','lider','jaAplicou'));
     }
 }

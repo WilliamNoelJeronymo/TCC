@@ -5,7 +5,7 @@
  */
 ?>
 <div class="funcoes index content">
-    <?= $this->Html->link(__('Nova Função'), ['action' => 'add'], ['class' => 'btn btn-primary float-right']) ?>
+    <?= $this->Html->link(__('Criar Nova Função'), ['action' => 'add',$projeto_id], ['class' => 'btn btn-primary float-right']) ?>
     <h3><?= __('Funcoes') ?></h3>
     <div class="table-responsive">
         <table class="table table-striped">

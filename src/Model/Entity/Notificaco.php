@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property int $usuario_id_remetente
  * @property int $funcoes_id
  * @property int $aceite
+ * @property string $mensagem
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
  *
@@ -34,6 +35,7 @@ class Notificaco extends Entity
         'usuario_id_remetente' => true,
         'funcoes_id' => true,
         'aceite' => true,
+        'mensagem' => true,
         'created' => true,
         'modified' => true,
         'funco' => true,

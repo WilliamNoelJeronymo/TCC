@@ -44,10 +44,27 @@ class NotificacoesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($usuario_id, $projeto_id,$funcao_id)
     {
-        pr($this->request->getData());
-        exit();
+        $usuarioLogado = $this->request->getAttribute('identity');
+        $remetente = $this->Notificacoes->UsuariosRemetente
+            ->find()
+            ->where(['UsuariosRemetente.id' => $usuario_id])
+            ->first();
+
+        $notificacao = $this->Notificacoes->newEmptyEntity();
+        $notificacao->mensagem = $this->request->getData('mensagem');
+        $notificacao->funcoes_id = $funcao_id;
+        $notificacao->usuario_id_emissor = $usuarioLogado->id;
+        $notificacao->usuario_id_remetente = $remetente->id;
+        $notificacao->aceite = 0;
+        if ($this->Notificacoes->save($notificacao)) {
+            $this->Flash->success(__('Notificação enviada com sucesso.'));
+            return $this->redirect(['controller' => 'Projetos', 'action' => 'view', $projeto_id]);
+        } else {
+            $this->Flash->success(__('Houve um erro ao processar sua solicitação. Por favor, tente novamente.'));
+            return $this->redirect(['controller' => 'Projetos', 'action' => 'view', $projeto_id]);
+        }
     }
 
     /**
@@ -80,16 +97,16 @@ class NotificacoesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id)
     {
         $this->request->allowMethod(['post', 'delete']);
         $notificaco = $this->Notificacoes->get($id);
         if ($this->Notificacoes->delete($notificaco)) {
-            $this->Flash->success(__('The notificaco has been deleted.'));
+            $this->Flash->success(__('Aplicação cancelada com sucesso.'));
         } else {
-            $this->Flash->error(__('The notificaco could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Houve um erro ao cancelar a aplicação. Por favor, tente novamente.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller'=>'Projetos','action' => 'index']);
     }
 }

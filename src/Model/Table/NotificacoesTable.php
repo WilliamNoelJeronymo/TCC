@@ -51,6 +51,17 @@ class NotificacoesTable extends Table
             'foreignKey' => 'funcoes_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('UsuariosEmissor', [
+            'className' => 'Usuarios',
+            'foreignKey' => 'usuario_id_emissor',
+            'joinType' => 'INNER',
+        ]);
+
+        $this->belongsTo('UsuariosRemetente', [
+            'className' => 'Usuarios',
+            'foreignKey' => 'usuario_id_remetente',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -78,6 +89,11 @@ class NotificacoesTable extends Table
         $validator
             ->integer('aceite')
             ->notEmptyString('aceite');
+
+        $validator
+            ->scalar('mensagem')
+            ->requirePresence('mensagem', 'create')
+            ->notEmptyString('mensagem');
 
         return $validator;
     }
