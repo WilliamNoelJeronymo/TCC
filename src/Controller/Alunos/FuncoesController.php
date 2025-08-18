@@ -31,7 +31,7 @@ class FuncoesController extends AppController
             ->groupBy(['Funcoes.id', 'Funcoes.nome']) // Agrupa corretamente
             ->toArray();
 
-        $this->set(compact('funcoes','projeto_id'));
+        $this->set(compact('funcoes', 'projeto_id'));
     }
 
     /**
@@ -61,7 +61,7 @@ class FuncoesController extends AppController
             if ($this->Funcoes->save($funco)) {
                 $this->Flash->success(__('Função criada com sucesso!'));
 
-                return $this->redirect(['action' => 'index',$projeto_id]);
+                return $this->redirect(['action' => 'index', $projeto_id]);
             }
             $this->Flash->error(__('Houve um erro ao criar a função. Por favor, tente novamente'));
         }
@@ -72,7 +72,7 @@ class FuncoesController extends AppController
             ])
             ->limit(200)
             ->all();
-        $this->set(compact('funco', 'projeto_id','habilidades'));
+        $this->set(compact('funco', 'projeto_id', 'habilidades'));
     }
 
     /**
@@ -166,7 +166,7 @@ class FuncoesController extends AppController
         $projetoId = $funcao->projeto->id;
         $lider = null;
         $jaAplicou = $Notificacoes
-            ->exists(['usuario_id_emissor' => $usuarioLogado->id,'funcoes_id'=>$id]);
+            ->exists(['usuario_id_emissor' => $usuarioLogado->id, 'funcoes_id' => $id]);
 
         if ($projetoId) {
             $lider = $this->Funcoes->find()
@@ -177,6 +177,24 @@ class FuncoesController extends AppController
                 ])
                 ->first()?->usuarios[0];
         }
-        $this->set(compact('funcao', 'habilidadesUsuario','lider','jaAplicou'));
+        $this->set(compact('funcao', 'habilidadesUsuario', 'lider', 'jaAplicou'));
+    }
+
+    public function aprovar($funcao_id, $usuario_id)
+    {
+        $UsuariosFuncoes = $this->fetchTable('UsuariosFuncoes');
+
+        $vinculo = $UsuariosFuncoes->newEntity([
+            'usuario_id' => $usuario_id,
+            'funcoes_id' => $funcao_id,
+            'editor' => 0
+        ]);
+        if ($UsuariosFuncoes->save($vinculo)) {
+            $this->Flash->success('Novo membro aceito com sucesso!');
+        } else {
+            $this->Flash->error('Erro ao vincular usuário. Por favor, tente novamente.');
+        }
+        $funcao = $this->Funcoes->get($funcao_id, contain: 'Projetos');
+        return $this->redirect(['controller'=>'Projetos','action' => 'view', $funcao->projeto->id]);
     }
 }

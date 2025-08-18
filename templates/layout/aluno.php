@@ -66,7 +66,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
-                    <span class="badge badge-danger navbar-badge"><?= $minhasNotificacoes->count() ?></span>
+                    <?php if ($minhasNotificacoes->count() > 0): ?>
+                        <span class="badge badge-danger navbar-badge"><?= $minhasNotificacoes->count() ?></span>
+                    <?php endif; ?>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <span class="dropdown-item dropdown-header"><?= $minhasNotificacoes->count() ?> Notificações</span>
@@ -79,10 +81,12 @@
                            title="Visualizar"
                            data-tooltip="tooltip">
                             <p class="text-sm">
-        <span class="text-secondary">
-            Projeto: <?= h($notificacoes->funco->projeto->nome) ?>
-        </span><br>
-                                <span class="text-info"><?= h($notificacoes->usuarios_emissor->nome) ?></span>, Gostaria de
+                                    <span class="text-secondary">
+                                        Projeto: <?= h($notificacoes->funco->projeto->nome) ?>
+                                    </span>
+                                <br>
+                                <span class="text-info"><?= h($notificacoes->usuarios_emissor->nome) ?></span>, Gostaria
+                                de
                                 participar do projeto
                                 como: <strong><?= h($notificacoes->funco->nome) ?></strong>
                             </p>
@@ -93,7 +97,7 @@
                 </div>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <?= $this->Html->link($usuario->nome . '<i class="fas fa-external-link-alt"></i>', ['controller' => 'Usuarios', 'action' => 'logout'], ['escape' => false, 'class' => 'nav-link',]) ?>
+                <?= $this->Html->link($usuarioMenu->nome . '<i class="fas fa-external-link-alt"></i>', ['controller' => 'Usuarios', 'action' => 'logout'], ['escape' => false, 'class' => 'nav-link',]) ?>
             </li>
         </ul>
     </nav>

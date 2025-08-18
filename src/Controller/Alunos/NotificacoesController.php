@@ -37,8 +37,17 @@ class NotificacoesController extends AppController
     public function view($id = null)
     {
         $this->viewBuilder()->disableAutoLayout();
-        $notificaco = $this->Notificacoes->get($id, contain: ['Funcoes']);
-        $this->set(compact('notificaco'));
+        $notificaco = $this->Notificacoes->get($id, contain: [
+            'Funcoes' => ['Projetos', 'Habilidades'],
+            'UsuariosEmissor' => ['Habilidades'],
+            'UsuariosRemetente'
+        ]);
+
+        $habilidadesEmissorIds = collection($notificaco->usuarios_emissor->habilidades)
+            ->extract('id')
+            ->toList();
+
+        $this->set(compact('notificaco', 'habilidadesEmissorIds'));
     }
 
     /**
@@ -110,5 +119,31 @@ class NotificacoesController extends AppController
         }
 
         return $this->redirect(['controller'=>'Projetos','action' => 'index']);
+    }
+
+    public function aprovar($id){
+        $notificaco = $this->Notificacoes->get($id);
+        $notificaco->aceite = 1;
+        if ($this->Notificacoes->save($notificaco)) {
+            return $this->redirect([
+                'controller' => 'Funcoes',
+                'action' => 'aprovar',
+                $notificaco->funcoes_id,
+                $notificaco->usuario_id_emissor
+            ]);
+        }
+        $this->Flash->error(__('Houve um erro ao aceitar a solicitação. Por favor, tente novamente.'));
+    }
+    public function reprovar(){
+        $notificaco = $this->Notificacoes->patchEntity($notificaco, $this->request->getData());
+        if ($this->Notificacoes->save($notificaco)) {
+            $this->Flash->success(__('The notificaco has been saved.'));
+
+            return $this->redirect(['action' => 'index']);
+        }
+        $this->Flash->error(__('The notificaco could not be saved. Please, try again.'));
+    }
+    public function resposta(){
+
     }
 }
