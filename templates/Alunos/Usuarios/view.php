@@ -61,6 +61,7 @@
                 ['controller' => 'Usuarios', 'action' => 'habilidades'],
                 ['class' => 'btn btn-primary', 'escape' => false]) ?>
         </div>
+
         <?php foreach ($usuario->habilidades as $habilidade): ?>
             <p style="display: inline-block" class="text-concluido-bg-grey"><?= $habilidade->nome ?></p>
         <?php endforeach; ?>

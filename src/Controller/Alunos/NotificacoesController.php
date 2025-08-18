@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Alunos;
 
 use App\Controller\Alunos\AppController;
+use SlevomatCodingStandard\Helpers\TypeHintHelperTest;
 
 /**
  * Notificacoes Controller
@@ -35,6 +36,7 @@ class NotificacoesController extends AppController
      */
     public function view($id = null)
     {
+        $this->viewBuilder()->disableAutoLayout();
         $notificaco = $this->Notificacoes->get($id, contain: ['Funcoes']);
         $this->set(compact('notificaco'));
     }

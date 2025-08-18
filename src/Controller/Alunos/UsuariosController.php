@@ -45,6 +45,7 @@ class UsuariosController extends AppController
                 'Habilidades'
             ]
         ]);
+
         $funcoesPorProjeto = collection($usuario->funcoes)
             ->groupBy(function ($funcao) {
 

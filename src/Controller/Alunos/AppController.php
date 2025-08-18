@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller\Alunos;
 
 use Cake\Controller\Controller;
@@ -47,19 +48,21 @@ class AppController extends Controller
         $this->viewBuilder()->setLayout('aluno');
 
     }
+
     public function beforeRender(\Cake\Event\EventInterface $event)
     {
         parent::beforeRender($event);
 
         $Notificacoes = $this->fetchTable('Notificacoes');
 
-        $usuario = $this->Authentication->getIdentity();
-
-        $minhasNotificacoes = $Notificacoes
-            ->find()
-            ->where(['usuario_id_remetente' => $usuario->id])
-        ->contain(['UsuariosEmissor','Funcoes'=>'Projetos']);
-
-        $this->set(compact('usuario', 'minhasNotificacoes'));
+        $usuarioMenu = $this->Authentication->getIdentity();
+        $minhasNotificacoes = null;
+        if ($usuarioMenu) {
+            $minhasNotificacoes = $Notificacoes
+                ->find()
+                ->where(['usuario_id_remetente' => $usuarioMenu->id])
+                ->contain(['UsuariosEmissor', 'Funcoes' => 'Projetos']);
+        }
+        $this->set(compact('usuarioMenu', 'minhasNotificacoes'));
     }
 }
