@@ -74,22 +74,34 @@
                     <span class="dropdown-item dropdown-header"><?= $minhasNotificacoes->count() ?> Notificações</span>
                     <div class="dropdown-divider"></div>
                     <?php foreach ($minhasNotificacoes->all() as $notificacoes): ?>
-                        <a href="<?= $this->Url->build(['controller' => 'Notificacoes', 'action' => 'view', $notificacoes->id]) ?>"
-                           class="dropdown-item"
-                           data-toggle="modal"
-                           data-target=".view"
-                           title="Visualizar"
-                           data-tooltip="tooltip">
+                        <?php if ($notificacoes->aceite == 1): ?>
+                            <a href="<?= $this->Url->build(['controller' => 'Notificacoes', 'action' => 'deleteView', $notificacoes->id,$notificacoes->funco->projeto->id]) ?>"
+                               class="dropdown-item">
+                                <p class="text-sm">
+                                    <?= $notificacoes->mensagem ?> <span
+                                        class="text-info"><?= $notificacoes->funco->projeto->nome ?></span> como <span
+                                        class="text-info"><?= h($notificacoes->funco->nome) ?></span>
+                                </p>
+                            </a>
+                        <?php else: ?>
+                            <a href="<?= $this->Url->build(['controller' => 'Notificacoes', 'action' => 'view', $notificacoes->id]) ?>"
+                            class="dropdown-item"
+                            data-toggle="modal"
+                            data-target=".view"
+                            title="Visualizar"
+                            data-tooltip="tooltip">
                             <p class="text-sm">
                                     <span class="text-secondary">
                                         Projeto: <?= h($notificacoes->funco->projeto->nome) ?>
                                     </span>
                                 <br>
-                                <span class="text-info"><?= h($notificacoes->usuarios_emissor->nome) ?></span>, Gostaria
+                                <span class="text-info"><?= h($notificacoes->usuarios_emissor->nome) ?></span>,
+                                Gostaria
                                 de
                                 participar do projeto
                                 como: <strong><?= h($notificacoes->funco->nome) ?></strong>
                             </p>
+                        <?php endif; ?>
                         </a>
 
                         <div class="dropdown-divider"></div>

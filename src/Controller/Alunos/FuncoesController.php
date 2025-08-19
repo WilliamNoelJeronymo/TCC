@@ -180,8 +180,9 @@ class FuncoesController extends AppController
         $this->set(compact('funcao', 'habilidadesUsuario', 'lider', 'jaAplicou'));
     }
 
-    public function aprovar($funcao_id, $usuario_id)
+    public function aprovar($funcao_id, $usuario_id, $notificacao_id)
     {
+        $usuarioLogado = $this->request->getAttribute('identity');
         $UsuariosFuncoes = $this->fetchTable('UsuariosFuncoes');
 
         $vinculo = $UsuariosFuncoes->newEntity([
@@ -191,10 +192,14 @@ class FuncoesController extends AppController
         ]);
         if ($UsuariosFuncoes->save($vinculo)) {
             $this->Flash->success('Novo membro aceito com sucesso!');
+            $Notificacao = $this->fetchTable('Notificacoes');
+            $notificao = $Notificacao->get($notificacao_id);
+            $Notificacao->delete($notificao);
+
         } else {
             $this->Flash->error('Erro ao vincular usuário. Por favor, tente novamente.');
         }
-        $funcao = $this->Funcoes->get($funcao_id, contain: 'Projetos');
-        return $this->redirect(['controller'=>'Projetos','action' => 'view', $funcao->projeto->id]);
+
+        return $this->redirect(['controller' => 'Notificacoes', 'action' => 'aceitacao',$funcao_id, $usuario_id, $usuarioLogado->id]);
     }
 }

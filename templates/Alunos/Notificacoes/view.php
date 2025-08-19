@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="text-right">
-            <?= $this->Html->link('Recusar', ['controller' => 'Notificacoes', 'action' => 'recusar', $notificaco->id], ['class' => 'btn btn-outline-danger']) ?>
+            <?= $this->Html->link('Recusar', ['controller' => 'Notificacoes', 'action' => 'recusar', $notificaco->id,$notificaco->funco->id], ['class' => 'btn btn-outline-danger']) ?>
             <?= $this->Html->link('Aprovar', ['controller' => 'Notificacoes', 'action' => 'aprovar', $notificaco->id], ['class' => 'btn btn-outline-success']) ?>
         </div>
     </div>

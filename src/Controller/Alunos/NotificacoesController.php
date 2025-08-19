@@ -55,7 +55,7 @@ class NotificacoesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add($usuario_id, $projeto_id,$funcao_id)
+    public function add($usuario_id, $projeto_id, $funcao_id)
     {
         $usuarioLogado = $this->request->getAttribute('identity');
         $remetente = $this->Notificacoes->UsuariosRemetente
@@ -118,10 +118,11 @@ class NotificacoesController extends AppController
             $this->Flash->error(__('Houve um erro ao cancelar a aplicação. Por favor, tente novamente.'));
         }
 
-        return $this->redirect(['controller'=>'Projetos','action' => 'index']);
+        return $this->redirect(['controller' => 'Projetos', 'action' => 'index']);
     }
 
-    public function aprovar($id){
+    public function aprovar($id)
+    {
         $notificaco = $this->Notificacoes->get($id);
         $notificaco->aceite = 1;
         if ($this->Notificacoes->save($notificaco)) {
@@ -129,21 +130,54 @@ class NotificacoesController extends AppController
                 'controller' => 'Funcoes',
                 'action' => 'aprovar',
                 $notificaco->funcoes_id,
-                $notificaco->usuario_id_emissor
+                $notificaco->usuario_id_emissor,
+                $notificaco->id
             ]);
         }
         $this->Flash->error(__('Houve um erro ao aceitar a solicitação. Por favor, tente novamente.'));
     }
-    public function reprovar(){
-        $notificaco = $this->Notificacoes->patchEntity($notificaco, $this->request->getData());
-        if ($this->Notificacoes->save($notificaco)) {
-            $this->Flash->success(__('The notificaco has been saved.'));
 
-            return $this->redirect(['action' => 'index']);
+    public function recusar($id, $funcoes_id)
+    {
+        $Funcoes = $this->fetchTable('Funcoes');
+
+        $notificacao = $this->Notificacoes->get($id);
+        $usuario_id_emissor = $notificacao->usuario_id_emissor;
+        $usuario_id_remetente = $notificacao->usuario_id_remetente;
+        if ($this->Notificacoes->delete($notificacao)) {
+            $notificacao = $this->Notificacoes->newEmptyEntity();
+            $notificacao->usuario_id_emissor = $usuario_id_remetente;
+            $notificacao->usuario_id_remetente = $usuario_id_emissor;
+            $notificacao->funcoes_id = $funcoes_id;
+            $notificacao->aceite = 1;
+            $notificacao->mensagem = "Sentimos muito, mas você não foi aceito no projeto ";
+            $this->Notificacoes->save($notificacao);
+            $this->Flash->success(__('Pedido recusado com sucesso.'));
+            $funcao = $Funcoes->get($funcoes_id, contain: 'Projetos');
+            return $this->redirect(['controller' => 'Projetos', 'action' => 'view', $funcao->projeto->id]);
         }
-        $this->Flash->error(__('The notificaco could not be saved. Please, try again.'));
     }
-    public function resposta(){
 
+    public function aceitacao($funcoes_id, $usuario_id_remetente, $usuario_id_emissor)
+    {
+        $Funcoes = $this->fetchTable('Funcoes');
+        $notificacao = $this->Notificacoes->newEmptyEntity();
+        $notificacao->usuario_id_emissor = $usuario_id_emissor;
+        $notificacao->usuario_id_remetente = $usuario_id_remetente;
+        $notificacao->funcoes_id = $funcoes_id;
+        $notificacao->aceite = 1;
+        $notificacao->mensagem = "Parabens! <br>Você foi aceito no projeto";
+        $this->Notificacoes->save($notificacao);
+        $funcao = $Funcoes->get($funcoes_id, contain: 'Projetos');
+        return $this->redirect(['controller' => 'Projetos', 'action' => 'view', $funcao->projeto->id]);
+    }
+
+    public function deleteView($id, $projeto_id)
+    {
+        $notificacao = $this->Notificacoes->get($id);
+        if ($this->Notificacoes->delete($notificacao)) {
+            return $this->redirect(['controller' => 'Projetos', 'action' => 'view', $projeto_id]);
+        }
+        $this->Flash->error(__('Ocorreu um erro ao processar a solicitação. Por favor tente novamente.'));
     }
 }
