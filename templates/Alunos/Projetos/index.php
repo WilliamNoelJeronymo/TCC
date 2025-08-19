@@ -4,6 +4,13 @@
  * @var iterable<\App\Model\Entity\Projeto> $projetos
  */
 ?>
+<?= $this->Form->create(null, ['type' => 'GET', 'url' => ['action' => 'index']]); ?>
+<div class="form-group">
+    <?php echo $this->Form->control('categoria_id', ['label' => 'Filtrar por categoria:', 'options' => $categorias, 'class' => 'mb-3 form-control', 'empty' => 'Selecione >>>', 'value' => $this->request->getQuery('segmentos_id')]); ?>
+</div>
+<?php echo $this->Html->link('Limpar', ['action' => 'index'], ['class' => 'btn btn-sm btn-secondary']); ?>
+<button class="btn btn-sm btn-primary" type="submit">Filtrar</button>
+<?= $this->Form->end() ?>
 <div class="row">
     <?php foreach ($projetos as $projeto): ?>
         <div class="col-md-6 mb-4">
@@ -53,23 +60,25 @@
                     <?php endforeach; ?>
                     <div class="d-flex justify-content-between">
                         <p class="texto-menor text-blue"><?= $projeto->orientador ? 'Prof. ' . $projeto->orientador : 'Sem Orientador' ?></p>
-                        <?= $this->Html->link(
-                            'Candidatar-se',
-                            ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
-                            [
-                                'escape' => false,
-                                'class' => 'btn btn-primary btn-sm ',
-                            ]
-                        ) ?>
-                        <!--                        --><?php //= $this->Html->link(
-                        //                            'Candidatar-se',
-                        //                            ['controller' => 'Projetos', 'action' => 'candidatar', $projeto->id],
-                        //                            [
-                        //                                'escape' => false,
-                        //                                'class' => 'btn btn-primary btn-sm toolTipOpen',
-                        //                                'title' => 'Visualizar', 'data-toggle' => 'modal', 'data-target' => '.view'
-                        //                            ]
-                        //                        ) ?>
+                        <?php if ($usuarioLogado->grupo_id == 2): ?>
+                            <?= $this->Html->link(
+                                'Orientar Projeto',
+                                ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
+                                [
+                                    'escape' => false,
+                                    'class' => 'btn btn-primary btn-sm ',
+                                ]
+                            ) ?>
+                        <?php else: ?>
+                            <?= $this->Html->link(
+                                'Candidatar-se',
+                                ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
+                                [
+                                    'escape' => false,
+                                    'class' => 'btn btn-primary btn-sm ',
+                                ]
+                            ) ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

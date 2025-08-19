@@ -17,9 +17,18 @@ class ProjetosController extends AppController
      */
     public function index()
     {
+        $usuarioLogado = $this->request->getAttribute('identity');
+        $categoriaId = $this->request->getQuery('categoria_id');
+
         $query = $this->Projetos->find()
-            ->contain(['Funcoes.Usuarios'])
-            ->where(['status' => 2]);
+            ->contain(['Funcoes.Usuarios', 'Categorias'])
+            ->where(['Projetos.status' => 2]);
+
+        if (!empty($categoriaId)) {
+            $query = $query->matching('Categorias', function ($q) use ($categoriaId) {
+                return $q->where(['Categorias.id' => $categoriaId]);
+            });
+        }
 
         $projetos = $this->paginate($query);
 
@@ -43,8 +52,8 @@ class ProjetosController extends AppController
                 $projeto->total_vagas_disponiveis += $funcao->vagas_disponiveis;
             }
         }
-
-        $this->set(compact('projetos'));
+        $categorias = $this->Projetos->Categorias->find('list', ['keyField' => 'id', 'valueField' => 'nome'])->all();
+        $this->set(compact('projetos', 'categorias','usuarioLogado'));
     }
 
 
@@ -93,7 +102,7 @@ class ProjetosController extends AppController
             ->groupBy(['Funcoes.id', 'Funcoes.nome']) // Agrupa corretamente
             ->toArray();
 
-        $this->set(compact('projeto', 'membros', 'funcoes', 'ehMembro'));
+        $this->set(compact('projeto', 'membros', 'funcoes', 'ehMembro','usuarioLogado'));
     }
 
     /**

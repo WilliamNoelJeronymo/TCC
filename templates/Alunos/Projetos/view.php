@@ -10,6 +10,12 @@
             <div class="text-right">
                 <?= $this->Html->link(' <i class="fas fa-edit"></i> Editar Projeto', ['controller' => 'Projetos', 'action' => 'edit', $projeto->id], ['escape' => false, 'class' => 'btn btn-info']) ?>
             </div>
+        <?php else: ?>
+            <?php if ($usuarioLogado->grupo_id == 2): ?>
+                <div class="text-right">
+                    <?= $this->Html->link(' <i class="fas fa-edit"></i> Orientar Projeto', ['controller' => 'Funcoes', 'action' => 'orientar', $projeto->id], ['escape' => false, 'class' => 'btn btn-info']) ?>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
         <h2><?= $projeto->nome ?></h2>
         <div class="row">
@@ -62,33 +68,36 @@
                     $completa = $funcao->total_usuarios == $funcao->quantidade;
                     $classeTexto = $completa ? 'text-success' : 'text-primary';
 
-                    // Define conteúdo base
+                    // Conteúdo base (sem link)
                     $conteudo = sprintf(
                         '<div class="d-flex justify-content-between">
-                <span class="mb-0 pb-0">%s</span>
-                <span class="%s"><i class="fas fa-users"></i> %d / %d</span>
-            </div>',
+            <span class="mb-0 pb-0">%s</span>
+            <span class="%s"><i class="fas fa-users"></i> %d / %d</span>
+        </div>',
                         h($funcao->nome),
                         $classeTexto,
                         $funcao->total_usuarios,
                         $funcao->quantidade
                     );
 
-                    // Se não for membro e houver vaga, vira link
-                    if (!$ehMembro && !$completa) {
-                        $conteudo = $this->Html->link($conteudo, ['controller' => 'Funcoes', 'action' => 'candidatar', $funcao->id], [
-                            'escape' => false,
-                            'title' => 'Visualizar',
-                            'data-tooltip' => 'tooltip',
-                            'data-toggle' => 'modal',
-                            'data-target' => '.view'
-                        ]);
+                    // Se não for membro, houver vaga e usuário não for 2 → vira link
+                    if (!$ehMembro && !$completa && $usuarioLogado->grupo_id != 2) {
+                        $conteudo = $this->Html->link($conteudo,
+                            ['controller' => 'Funcoes', 'action' => 'candidatar', $funcao->id], [
+                                'escape' => false,
+                                'title' => 'Visualizar',
+                                'data-tooltip' => 'tooltip',
+                                'data-toggle' => 'modal',
+                                'data-target' => '.view'
+                            ]
+                        );
                     }
                     ?>
 
                     <?= $conteudo ?>
                     <hr class="mb-2 mt-2">
                 <?php endforeach; ?>
+
 
             </div>
         </div>

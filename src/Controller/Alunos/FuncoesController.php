@@ -200,6 +200,52 @@ class FuncoesController extends AppController
             $this->Flash->error('Erro ao vincular usuário. Por favor, tente novamente.');
         }
 
-        return $this->redirect(['controller' => 'Notificacoes', 'action' => 'aceitacao',$funcao_id, $usuario_id, $usuarioLogado->id]);
+        return $this->redirect(['controller' => 'Notificacoes', 'action' => 'aceitacao', $funcao_id, $usuario_id, $usuarioLogado->id]);
+    }
+
+    public function orientar($projetos_id)
+    {
+        $Notificacoes = $this->fetchTable('Notificacoes');
+        $UsuariosFuncoes = $this->fetchTable('UsuariosFuncoes');
+        $projeto = $this->Funcoes->Projetos->get($projetos_id, [
+            'contain' => [
+                'Funcoes' => ['Usuarios']
+            ]
+        ]);
+        $usuarioLogado = $this->request->getAttribute('identity');
+        $funcao = $this->Funcoes->newEmptyEntity();
+        $funcao->nome = 'Orientador';
+        $funcao->projetos_id = $projetos_id;
+        $funcao->quantidade = 1;
+        $funcao->descricao = 'Professor Orientador responsável pelo projeto';
+        if ($this->Funcoes->save($funcao)) {
+            $vinculo = $UsuariosFuncoes->newEntity([
+                'usuario_id' => $usuarioLogado->id,
+                'funcoes_id' => $funcao->id,
+                'editor' => 1
+            ]);
+
+            if ($UsuariosFuncoes->save($vinculo)) {
+                $Notificacao = $this->fetchTable('Notificacoes');
+                $this->Flash->success('Você é o novo orientador do projeto: ');
+                foreach ($projeto->funcoes as $funcaoProjeto) {
+                    if ($funcaoProjeto->nome !== "Orientado") {
+                        foreach ($funcaoProjeto->usuarios as $usuario) {
+                            $notificao = $Notificacao->newEmptyEntity();
+                            $notificao->usuario_id_emmissor = $usuarioLogado->id;
+                            $notificao->usuario_id_remetente = $usuario->id;
+                            $notificao->funcaoes_id = $funcao->id;
+                            $notificao->aceite = 3;
+                            $notificao->mensagem = 'O professor ' . $usuarioLogado->nome . '<br>Agora está orientando o projeto: <span class="text-info"' . $projeto->nome . '</span>';
+                        }
+                    }
+                }
+                return $this->redirect(['controller' => 'Notificacoes', 'action' => 'aceitacao', $funcao_id, $usuario_id, $usuarioLogado->id]);
+            } else {
+                $this->Flash->error('Erro ao vincular usuário. Por favor, tente novamente.');
+            }
+        } else {
+            $this->Flash->error('Erro ao vincular usuário. Por favor, tente novamente.');
+        }
     }
 }

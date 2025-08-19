@@ -32,95 +32,107 @@
             </div>
 
             <!-- Botão Currículo -->
-            <div class="text-md-right">
-                <?= $this->Html->link('<i class="fas fa-download mr-1"></i> Gerar Currículo',
-                    ['controller' => 'Usuarios', 'action' => 'curriculo', $usuario->id],
-                    ['class' => 'btn btn-primary', 'escape' => false]) ?>
+            <?php if ($usuario->grupos_id == 2): ?>
+                <div class="text-md-right">
+                    <?= $this->Html->link('<i class="fas fa-download mr-1"></i> Gerar Currículo',
+                        ['controller' => 'Usuarios', 'action' => 'curriculo', $usuario->id],
+                        ['class' => 'btn btn-primary', 'escape' => false]) ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php if ($usuario->grupos_id == 2): ?>
+            <!-- Perfil Privado -->
+            <div class="mt-4 p-3 bg-light rounded d-flex align-items-center">
+                <i id="perfil-icon" class="fas fa-user-lock text-muted mr-2"></i>
+                <span id="perfil-text">Perfil Privado</span>
+                <label class="switch ml-3 mb-0">
+                    <input type="checkbox" id="perfil-toggle" <?= $usuario->perfil_privado ? 'checked' : '' ?>>
+                    <span class="slider round"></span>
+                </label>
+                <small class="text-muted ml-2" id="perfil-text-2">Apenas para você</small>
             </div>
-        </div>
+        <?php endif; ?>
 
-        <!-- Perfil Privado -->
-        <div class="mt-4 p-3 bg-light rounded d-flex align-items-center">
-            <i id="perfil-icon" class="fas fa-user-lock text-muted mr-2"></i>
-            <span id="perfil-text">Perfil Privado</span>
-            <label class="switch ml-3 mb-0">
-                <input type="checkbox" id="perfil-toggle" <?= $usuario->perfil_privado ? 'checked' : '' ?>>
-                <span class="slider round"></span>
-            </label>
-            <small class="text-muted ml-2" id="perfil-text-2">Apenas para você</small>
-        </div>
     </div>
 </div>
 
-<!--Habilidades-->
+<?php if ($usuario->grupos_id == 2): ?>
+    <!--Habilidades-->
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h4><i class="fas fa-cog"></i> Habilidades</h4>
+                <?= $this->Html->link('<i class="fas fa-cogs"></i> Gerênciar habilidades',
+                    ['controller' => 'Usuarios', 'action' => 'habilidades'],
+                    ['class' => 'btn btn-primary', 'escape' => false]) ?>
+            </div>
+
+            <?php foreach ($usuario->habilidades as $habilidade): ?>
+                <p style="display: inline-block" class="text-concluido-bg-grey"><?= $habilidade->nome ?></p>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<!--Projetos-->
 <div class="card">
     <div class="card-body">
         <div class="d-flex justify-content-between">
-        <h4><i class="fas fa-cog"></i> Habilidades</h4>
-            <?= $this->Html->link('<i class="fas fa-cogs"></i> Gerênciar habilidades',
-                ['controller' => 'Usuarios', 'action' => 'habilidades'],
-                ['class' => 'btn btn-primary', 'escape' => false]) ?>
+            <h6><i class="fas fa-wrench"></i> Projetos em que participa</h6>
         </div>
-
-        <?php foreach ($usuario->habilidades as $habilidade): ?>
-            <p style="display: inline-block" class="text-concluido-bg-grey"><?= $habilidade->nome ?></p>
-        <?php endforeach; ?>
     </div>
-</div>
-
-
-<!--Projetos-->
-<div class="row">
-    <?php foreach ($funcoesPorProjeto as $grupo): ?>
-        <?php
-        $projeto = $grupo['projeto'];
-        $listaDeFuncoes = $grupo['funcoes'];
-        ?>
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
-                <?php
-                $urlBanner = !empty($projeto->banner)
-                    ? $this->Url->build('/uploads/projetos/' . $projeto->id . '/imagens/' . $projeto->banner)
-                    : '/img/default-project.jpg';
-                ?>
-                <div class="card-img p-3">
-                    <div class="project-banner" style="
-                        background-image: url('<?= h($urlBanner) ?>');
-                        "></div>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <h5 style="font-weight: 500"><?= h($projeto->nome) ?></h5>
-                        <?php if ($projeto->status == 2): ?>
-                            <span class="text-confirmado-bg-green">Em andamento</span>
-                        <?php elseif ($projeto->status == 1): ?>
-                            <p class="text-concluido-bg-grey">Concluído</p>
-                        <?php endif; ?>
-                    </div>
-                    <p class="text-secondary">
-                        <?= h($this->Text->truncate($projeto->descricao, 200, [
-                            'ellipsis' => '…',
-                            'exact' => false // não corta no meio da palavra
-                        ])) ?>
-                    </p> <?php
-                    $nomes = array_map(fn($f) => $f->nome, $listaDeFuncoes);
+    <div class="row">
+        <?php foreach ($funcoesPorProjeto as $grupo): ?>
+            <?php
+            $projeto = $grupo['projeto'];
+            $listaDeFuncoes = $grupo['funcoes'];
+            ?>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <?php
+                    $urlBanner = !empty($projeto->banner)
+                        ? $this->Url->build('/uploads/projetos/' . $projeto->id . '/imagens/' . $projeto->banner)
+                        : '/img/default-project.jpg';
                     ?>
-                    <div class="d-flex justify-content-between">
-                        <p style="color: rgb(37 99 235)"><?= h(implode(' / ', $nomes)) ?></p>
-                        <p class="text-muted mt-2">
-                            Desde <?= h($projeto->created->format('d/m/Y')) ?>
-                        </p>
+                    <div class="card-img p-3">
+                        <div class="project-banner" style="
+                            background-image: url('<?= h($urlBanner) ?>');
+                            "></div>
                     </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 style="font-weight: 500"><?= h($projeto->nome) ?></h5>
+                            <?php if ($projeto->status == 2): ?>
+                                <span class="text-confirmado-bg-green">Em andamento</span>
+                            <?php elseif ($projeto->status == 1): ?>
+                                <p class="text-concluido-bg-grey">Concluído</p>
+                            <?php endif; ?>
+                        </div>
+                        <p class="text-secondary">
+                            <?= h($this->Text->truncate($projeto->descricao, 200, [
+                                'ellipsis' => '…',
+                                'exact' => false // não corta no meio da palavra
+                            ])) ?>
+                        </p> <?php
+                        $nomes = array_map(fn($f) => $f->nome, $listaDeFuncoes);
+                        ?>
+                        <div class="d-flex justify-content-between">
+                            <p style="color: rgb(37 99 235)"><?= h(implode(' / ', $nomes)) ?></p>
+                            <p class="text-muted mt-2">
+                                Desde <?= h($projeto->created->format('d/m/Y')) ?>
+                            </p>
+                        </div>
 
-                    <?= $this->Html->link(
-                        'Ver Projeto',
-                        ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
-                        ['class' => 'btn btn-primary btn-sm']
-                    ) ?>
+                        <?= $this->Html->link(
+                            'Ver Projeto',
+                            ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
+                            ['class' => 'btn btn-primary btn-sm']
+                        ) ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 </div>
 <script>
     $(document).ready(function () {
