@@ -32,7 +32,7 @@
             </div>
 
             <!-- Botão Currículo -->
-            <?php if ($usuario->grupos_id == 2): ?>
+            <?php if ($usuario->grupo_id !== 2): ?>
                 <div class="text-md-right">
                     <?= $this->Html->link('<i class="fas fa-download mr-1"></i> Gerar Currículo',
                         ['controller' => 'Usuarios', 'action' => 'curriculo', $usuario->id],
@@ -56,7 +56,7 @@
     </div>
 </div>
 
-<?php if ($usuario->grupos_id == 2): ?>
+<?php if ($usuario->grupo_id !== 2): ?>
     <!--Habilidades-->
     <div class="card">
         <div class="card-body">

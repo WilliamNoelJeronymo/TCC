@@ -83,6 +83,13 @@
                                         class="text-info"><?= h($notificacoes->funco->nome) ?></span>
                                 </p>
                             </a>
+                        <?php elseif($notificacoes->aceite == 3): ?>
+                            <a href="<?= $this->Url->build(['controller' => 'Notificacoes', 'action' => 'deleteView', $notificacoes->id,$notificacoes->funco->projeto->id]) ?>"
+                               class="dropdown-item">
+                                <p class="text-sm">
+                                    <?= $notificacoes->mensagem ?>
+                                </p>
+                            </a>
                         <?php else: ?>
                             <a href="<?= $this->Url->build(['controller' => 'Notificacoes', 'action' => 'view', $notificacoes->id]) ?>"
                             class="dropdown-item"

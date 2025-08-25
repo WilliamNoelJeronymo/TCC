@@ -207,18 +207,25 @@ class FuncoesController extends AppController
     {
         $Notificacoes = $this->fetchTable('Notificacoes');
         $UsuariosFuncoes = $this->fetchTable('UsuariosFuncoes');
+
         $projeto = $this->Funcoes->Projetos->get($projetos_id, [
             'contain' => [
                 'Funcoes' => ['Usuarios']
             ]
         ]);
+
         $usuarioLogado = $this->request->getAttribute('identity');
+
+        // Criar função Orientador
         $funcao = $this->Funcoes->newEmptyEntity();
         $funcao->nome = 'Orientador';
         $funcao->projetos_id = $projetos_id;
         $funcao->quantidade = 1;
         $funcao->descricao = 'Professor Orientador responsável pelo projeto';
+
         if ($this->Funcoes->save($funcao)) {
+
+            // Vincular usuário logado à função de Orientador
             $vinculo = $UsuariosFuncoes->newEntity([
                 'usuario_id' => $usuarioLogado->id,
                 'funcoes_id' => $funcao->id,
@@ -226,26 +233,39 @@ class FuncoesController extends AppController
             ]);
 
             if ($UsuariosFuncoes->save($vinculo)) {
-                $Notificacao = $this->fetchTable('Notificacoes');
-                $this->Flash->success('Você é o novo orientador do projeto: ');
+                $this->Flash->success('Você é o novo orientador do projeto.');
+
+                // Notificar os outros membros
                 foreach ($projeto->funcoes as $funcaoProjeto) {
                     if ($funcaoProjeto->nome !== "Orientado") {
                         foreach ($funcaoProjeto->usuarios as $usuario) {
-                            $notificao = $Notificacao->newEmptyEntity();
-                            $notificao->usuario_id_emmissor = $usuarioLogado->id;
-                            $notificao->usuario_id_remetente = $usuario->id;
-                            $notificao->funcaoes_id = $funcao->id;
-                            $notificao->aceite = 3;
-                            $notificao->mensagem = 'O professor ' . $usuarioLogado->nome . '<br>Agora está orientando o projeto: <span class="text-info"' . $projeto->nome . '</span>';
+                            $notificacao = $Notificacoes->newEmptyEntity();
+                            $notificacao->usuario_id_emissor = $usuarioLogado->id;
+                            $notificacao->usuario_id_remetente = $usuario->id;
+                            $notificacao->funcoes_id = $funcao->id;
+                            $notificacao->aceite = 3;
+                            $notificacao->mensagem =
+                                'O professor ' . h($usuarioLogado->nome) .
+                                ' agora está orientando o projeto: <span class="text-info">' .
+                                h($projeto->nome) . '</span>';
+
+                            $Notificacoes->save($notificacao);
                         }
                     }
                 }
-                return $this->redirect(['controller' => 'Notificacoes', 'action' => 'aceitacao', $funcao_id, $usuario_id, $usuarioLogado->id]);
+
+                return $this->redirect([
+                    'controller' => 'Projetos',
+                    'action' => 'view',
+                    $projetos_id
+                ]);
+
             } else {
                 $this->Flash->error('Erro ao vincular usuário. Por favor, tente novamente.');
             }
         } else {
-            $this->Flash->error('Erro ao vincular usuário. Por favor, tente novamente.');
+            $this->Flash->error('Erro ao criar função de orientador. Por favor, tente novamente.');
         }
     }
+
 }

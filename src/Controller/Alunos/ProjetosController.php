@@ -220,5 +220,16 @@ class ProjetosController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function validar($id){
+        $projeto = $this->Projetos->get($id);
+        $projeto->status = 1;
+        if ($this->Projetos->save($projeto)){
+            $this->Flash->success(__('Projeto Validado e concluido com sucesso!'));
+        }else{
+            $this->Flash->error(__('Houve um erro ao validadr e concluir o projeto. Por favor tente novamente.'));
+        }
+        return $this->redirect(['action' => 'view',$id]);
+
+    }
 
 }
