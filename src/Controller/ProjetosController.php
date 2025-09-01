@@ -17,8 +17,26 @@ class ProjetosController extends AppController
      */
     public function index()
     {
-        $query = $this->Projetos->find();
+        $query = $this->Projetos->find()
+            ->contain(['Funcoes.Usuarios', 'Categorias']);
+
+        if (!empty($categoriaId)) {
+            $query = $query->matching('Categorias', function ($q) use ($categoriaId) {
+                return $q->where(['Categorias.id' => $categoriaId]);
+            });
+        }
+
         $projetos = $this->paginate($query);
+
+        foreach ($projetos as $projeto) {
+            $projeto->orientador = null;
+            foreach ($projeto->funcoes as $funcao) {
+                if (strcasecmp($funcao->nome, 'Orientador') === 0) {
+                    $projeto->orientador = $funcao->usuarios[0]->nome;
+                    break;
+                }
+            }
+        }
 
         $this->set(compact('projetos'));
     }
@@ -32,7 +50,15 @@ class ProjetosController extends AppController
      */
     public function view($id = null)
     {
-        $projeto = $this->Projetos->get($id, contain: ['Documentos', 'Imagens']);
+        $projeto = $this->Projetos->get($id, contain: ['Documentos', 'Imagens','Funcoes.Usuarios','Categorias']);
+        $projeto->orientador = null;
+        foreach ($projeto->funcoes as $funcao) {
+            if (strcasecmp($funcao->nome, 'Orientador') === 0) {
+                $projeto->orientador = $funcao->usuarios[0]->nome;
+                break;
+            }
+        }
+
         $this->set(compact('projeto'));
     }
 

@@ -4,139 +4,114 @@
  * @var \App\Model\Entity\Projeto $projeto
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Projeto'), ['action' => 'edit', $projeto->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Projeto'), ['action' => 'delete', $projeto->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projeto->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Projetos'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Projeto'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+<div class="container">
+    <div class="row">
+        <!-- Coluna da esquerda -->
+        <div class="col-md-8">
+            <!-- Banner e informações principais -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-img">
+                        <?= $this->Html->image(
+                            '/uploads/projetos/' . $projeto->id . '/imagens/' . $projeto->banner,
+                            ['class' => 'img-fluid w-100']
+                        ) ?>
+                    </div>
+                    <div class="card-body">
+                        <h2><?= h($projeto->nome) ?></h2>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="texto-menor text-secondary">
+                                <i class="fa-fw fas fa-map-pin texto-azul-claro"></i> Faeterj - Petrópolis
+                            </p>
+                            <p class="texto-menor text-secondary">
+                                <i class="fa-fw far fa-calendar texto-azul-claro"></i>
+                                <?= h($projeto->created->format('d/m/Y')) ?>
+                                - <?= h($projeto->modified->format('d/m/Y')) ?>
+                            </p>
+                        </div>
+                        <?php foreach ($projeto->categorias as $categoria): ?>
+                            <span class="text-categorias-bg-grey d-inline-block"><?= h($categoria->nome) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Descrição -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h3>Descrição do Projeto</h3>
+                    <p class="text-secondary"><?= h($projeto->descricao) ?></p>
+                    <hr>
+                    <h5>Objetivo</h5>
+                    <p class="text-secondary"><?= h($projeto->objetvo ?? '') ?></p>
+                    <hr>
+                    <h5>Documentação</h5>
+                    <p class="text-secondary"><?= $projeto->texto ?></p>
+                </div>
+            </div>
+
+            <!-- Funções e Participantes -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h3>Funções e Participantes</h3>
+                    <?php foreach ($projeto->funcoes as $funcao): ?>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p><strong><?= h($funcao->nome) ?></strong></p>
+                                <small><?= h($funcao->descricao) ?></small>
+                                <div class="mt-2">
+                                    <small><strong>Participantes</strong></small>
+                                </div>
+                                <?php if ($funcao->usuarios): ?>
+                                    <?php foreach ($funcao->usuarios as $usuario): ?>
+                                        <div class="card-body text-categorias-bg-grey d-flex justify-content-between">
+                                            <div class="user-panel d-flex align-items-center">
+                                                <div class="image mr-2">
+                                                    <?php if ($usuario->foto): ?>
+                                                        <?= $this->Html->image(
+                                                            '/uploads/alunos/' . $usuario->matricula . '/imagem_perfil/' . $usuario->foto,
+                                                            ['class' => 'img-circle elevation-2', 'alt' => 'user image']
+                                                        ) ?>
+                                                    <?php else: ?>
+                                                        <?= $this->Html->image(
+                                                            '/img/default-user.jpg',
+                                                            ['class' => 'img-circle elevation-2', 'alt' => 'user image']
+                                                        ) ?>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="info">
+                                                    <?= h($usuario->nome) ?>
+                                                </div>
+                                            </div>
+                                            <?= $this->Html->link('Curriculo', ['controller' => '', 'action' => ''], ['class' => 'btn btn-primary text-end']) ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="projetos view content">
-            <h3><?= h($projeto->nome) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Nome') ?></th>
-                    <td><?= h($projeto->nome) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Objetvo') ?></th>
-                    <td><?= h($projeto->objetvo) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Banner') ?></th>
-                    <td><?= h($projeto->banner) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($projeto->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Status') ?></th>
-                    <td><?= $this->Number->format($projeto->status) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($projeto->created) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Modified') ?></th>
-                    <td><?= h($projeto->modified) ?></td>
-                </tr>
-            </table>
-            <div class="text">
-                <strong><?= __('Descricao') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($projeto->descricao)); ?>
-                </blockquote>
-            </div>
-            <div class="text">
-                <strong><?= __('Texto') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($projeto->texto)); ?>
-                </blockquote>
-            </div>
-            <div class="related">
-                <h4><?= __('Related Categorias') ?></h4>
-                <?php if (!empty($projeto->categorias)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Nome') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($projeto->categorias as $categoria) : ?>
-                        <tr>
-                            <td><?= h($categoria->id) ?></td>
-                            <td><?= h($categoria->nome) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Categorias', 'action' => 'view', $categoria->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Categorias', 'action' => 'edit', $categoria->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Categorias', 'action' => 'delete', $categoria->id], ['confirm' => __('Are you sure you want to delete # {0}?', $categoria->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
+
+        <!-- Coluna da direita -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4><i class="fas fa-user"></i> Orientador</h4>
+                    <p>Prof. <?= h($projeto->orientador) ?></p>
                 </div>
-                <?php endif; ?>
             </div>
-            <div class="related">
-                <h4><?= __('Related Documentos') ?></h4>
-                <?php if (!empty($projeto->documentos)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Nome') ?></th>
-                            <th><?= __('Projeto Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($projeto->documentos as $documento) : ?>
-                        <tr>
-                            <td><?= h($documento->id) ?></td>
-                            <td><?= h($documento->nome) ?></td>
-                            <td><?= h($documento->projeto_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Documentos', 'action' => 'view', $documento->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Documentos', 'action' => 'edit', $documento->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Documentos', 'action' => 'delete', $documento->id], ['confirm' => __('Are you sure you want to delete # {0}?', $documento->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h4><i class="fas fa-file-alt"></i> Documentos</h4>
+                    <?php foreach ($projeto->documentos as $documento): ?>
+                        <p>
+                            <i class="fa-fw fas fa-file-invoice texto-azul-claro"></i>
+                            <?= h($documento->nome) ?>
+                        </p>
+                    <?php endforeach; ?>
                 </div>
-                <?php endif; ?>
-            </div>
-            <div class="related">
-                <h4><?= __('Related Imagens') ?></h4>
-                <?php if (!empty($projeto->imagens)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Nome') ?></th>
-                            <th><?= __('Projeto Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($projeto->imagens as $imagen) : ?>
-                        <tr>
-                            <td><?= h($imagen->id) ?></td>
-                            <td><?= h($imagen->nome) ?></td>
-                            <td><?= h($imagen->projeto_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Imagens', 'action' => 'view', $imagen->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Imagens', 'action' => 'edit', $imagen->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Imagens', 'action' => 'delete', $imagen->id], ['confirm' => __('Are you sure you want to delete # {0}?', $imagen->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
-                <?php endif; ?>
             </div>
         </div>
     </div>

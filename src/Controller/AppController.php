@@ -43,6 +43,7 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('Flash');
+        $this->viewBuilder()->setLayout('publico');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
