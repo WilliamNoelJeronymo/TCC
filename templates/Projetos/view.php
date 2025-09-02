@@ -64,7 +64,8 @@
                                 </div>
                                 <?php if ($funcao->usuarios): ?>
                                     <?php foreach ($funcao->usuarios as $usuario): ?>
-                                        <div class="card-body text-categorias-bg-grey d-flex justify-content-between">
+                                        <div
+                                            class="card-body text-categorias-bg-grey d-flex justify-content-between align-items-center">
                                             <div class="user-panel d-flex align-items-center">
                                                 <div class="image mr-2">
                                                     <?php if ($usuario->foto): ?>
@@ -83,8 +84,14 @@
                                                     <?= h($usuario->nome) ?>
                                                 </div>
                                             </div>
-                                            <?= $this->Html->link('Curriculo', ['controller' => '', 'action' => ''], ['class' => 'btn btn-primary text-end']) ?>
+
+                                            <?= $this->Html->link(
+                                                'Currículo',
+                                                ['controller' => 'Usuarios', 'action' => 'curriculo', $usuario->id],
+                                                ['class' => 'btn btn-primary ml-auto']
+                                            ) ?>
                                         </div>
+
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>

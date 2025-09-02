@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\View\ViewBuilder;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 /**
  * Usuarios Controller
  *
@@ -100,4 +104,39 @@ class UsuariosController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+    public function curriculo($id = null)
+    {
+        $usuario = $this->Usuarios->get($id, [
+            'contain' => ['Funcoes.Projetos', 'Habilidades']
+        ]);
+
+        // Renderiza a view em string
+        $this->viewBuilder()
+            ->setClassName('Cake\View\View')
+            ->disableAutoLayout()
+            ->setTemplatePath('Usuarios')
+            ->setTemplate('curriculo');
+
+        $this->set(compact('usuario'));
+        $html = $this->render()->getBody(); // aqui já pega o HTML renderizado
+
+        // Configuração do Dompdf
+        $options = new \Dompdf\Options();
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultFont', 'DejaVu Sans'); // suporta acentuação
+        $dompdf = new \Dompdf\Dompdf($options);
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Retorna o PDF como download
+        return $this->response
+            ->withType('pdf')
+            ->withStringBody($dompdf->output())
+            ->withDownload("curriculo_{$usuario->nome}.pdf");
+    }
+
 }
