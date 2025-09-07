@@ -43,6 +43,16 @@
             <?= $this->Form->control('texto', ['label' => 'Documentação do projeto', 'class' => 'form-control tiny']); ?>
         </div>
     </div>
+    <div class="col-md-12">
+        <?= $this->Form->control('documentos[]', [
+            'label' => 'Documentos do Projeto',
+            'type' => 'file',
+            'multiple' => true,
+            'class' => 'file-upload',
+            'required' => false,
+            'accept' => 'application/pdf'
+        ]); ?>
+    </div>
 </div>
 <div class="text-right">
     <?php echo $this->Html->link('Cancelar', ['action' => 'index'], ['class' => 'btn btn-default']); ?>

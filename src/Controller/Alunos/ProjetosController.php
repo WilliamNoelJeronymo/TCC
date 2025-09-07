@@ -53,7 +53,7 @@ class ProjetosController extends AppController
             }
         }
         $categorias = $this->Projetos->Categorias->find('list', ['keyField' => 'id', 'valueField' => 'nome'])->all();
-        $this->set(compact('projetos', 'categorias','usuarioLogado'));
+        $this->set(compact('projetos', 'categorias', 'usuarioLogado'));
     }
 
 
@@ -102,7 +102,7 @@ class ProjetosController extends AppController
             ->groupBy(['Funcoes.id', 'Funcoes.nome']) // Agrupa corretamente
             ->toArray();
 
-        $this->set(compact('projeto', 'membros', 'funcoes', 'ehMembro','usuarioLogado'));
+        $this->set(compact('projeto', 'membros', 'funcoes', 'ehMembro', 'usuarioLogado'));
     }
 
     /**
@@ -117,32 +117,69 @@ class ProjetosController extends AppController
             $projeto = $this->Projetos->patchEntity($projeto, $this->request->getData());
             $projeto->status = 2;
 
-            $file = $this->request->getData('imagem');
-            if ($file && $file->getError() === UPLOAD_ERR_OK) {
-                $file_name = $file->getClientFilename();
-                $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
-                $file_name = md5($file_name) . time() . '.' . $file_extension;
-                $projeto->banner = $file_name;
+            $banner = $this->request->getData('imagem');
+            $documentos = $this->request->getData('documentos');
+
+            // --- Banner ---
+            if ($banner && $banner->getError() === UPLOAD_ERR_OK) {
+                $banner_name = $banner->getClientFilename();
+                $banner_extension = pathinfo($banner_name, PATHINFO_EXTENSION);
+
+                // Gera nome único pro banner (pra evitar sobrescrita)
+                $banner_name = md5($banner_name . time()) . '.' . $banner_extension;
+                $projeto->banner = $banner_name;
             }
+
             if ($this->Projetos->save($projeto)) {
-                if ($file && $file->getError() === UPLOAD_ERR_OK) {
-                    $uploadsPath = UPLOAD_PROJETOS . '' . $projeto->id . '/imagens';
+                // Salvar o banner
+                if ($banner && $banner->getError() === UPLOAD_ERR_OK) {
+                    $uploadsPath = UPLOAD_PROJETOS . '/' . $projeto->id . '/imagens';
                     if (!is_dir($uploadsPath)) {
                         mkdir($uploadsPath, 0755, true);
                     }
-                    $file_target_path = $uploadsPath . '/' . $file_name;
-                    $file->moveTo($file_target_path);
+                    $banner_target_path = $uploadsPath . '/' . $banner_name;
+                    $banner->moveTo($banner_target_path);
                 }
-                $this->Flash->success(__('The projeto has been saved.'));
 
+                // --- Documentos ---
+                if (!empty($documentos)) {
+                    foreach ($documentos as $documento) {
+                        if ($documento && $documento->getError() === UPLOAD_ERR_OK) {
+                            $documento_name = $documento->getClientFilename();
+
+                            // Mantém o nome original
+                            $documentoEntity = $this->Projetos->Documentos->newEntity([
+                                'nome' => $documento_name,
+                                'projeto_id' => $projeto->id,
+                            ]);
+
+                            if ($this->Projetos->Documentos->save($documentoEntity)) {
+                                $uploadsPath = UPLOAD_PROJETOS . '/' . $projeto->id . '/documentos';
+                                if (!is_dir($uploadsPath)) {
+                                    mkdir($uploadsPath, 0755, true);
+                                }
+                                $doc_target_path = $uploadsPath . '/' . $documento_name;
+                                $documento->moveTo($doc_target_path);
+                            }
+                        }
+                    }
+                }
+
+                $this->Flash->success(__('Projeto criado com sucesso'));
                 return $this->redirect(['controller' => 'Funcoes', 'action' => 'primeiroCadastro', $projeto->id]);
             }
-            $this->Flash->error(__('Ocorreu um erro ao criar o projeto. Por favor tente novamente mais tarde.'));
+
+            $this->Flash->error(__('Ocorreu um erro ao criar o projeto. Por favor, tente novamente.'));
         }
 
-        $categorias = $this->Projetos->Categorias->find('list', ['keyField' => 'id', 'valueField' => 'nome'])->all();
+        $categorias = $this->Projetos->Categorias->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome'
+        ])->all();
+
         $this->set(compact('projeto', 'categorias'));
     }
+
 
     /**
      * Edit method
@@ -153,37 +190,63 @@ class ProjetosController extends AppController
      */
     public function edit($id = null)
     {
-        $projeto = $this->Projetos->get($id, contain: ['Categorias']);
+        $projeto = $this->Projetos->get($id, contain: ['Categorias', 'Documentos']);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
 
             $file = $data['imagem'] ?? null;
+            $documentos = $data['documentos'] ?? [];
 
-            // Preserva o nome do banner antigo se nenhum novo arquivo for enviado
+            // Preserva o banner se nenhum novo for enviado
             if (!$file || $file->getError() !== UPLOAD_ERR_OK) {
-                unset($data['imagem']); // não sobrescreve o banner
+                unset($data['imagem']);
             }
 
             $projeto = $this->Projetos->patchEntity($projeto, $data);
 
-            // Se houver novo upload de imagem
+            // Se houver novo upload de banner
             if ($file && $file->getError() === UPLOAD_ERR_OK) {
                 $file_name = $file->getClientFilename();
                 $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
-                $file_name = md5($file_name) . time() . '.' . $file_extension;
+
+                $file_name = md5($file_name . time()) . '.' . $file_extension;
                 $projeto->banner = $file_name;
             }
 
             if ($this->Projetos->save($projeto)) {
-                // Salva a nova imagem se necessário
+                // Salvar o banner novo
                 if ($file && $file->getError() === UPLOAD_ERR_OK) {
-                    $uploadsPath = UPLOAD_PROJETOS . $projeto->id . '/imagens';
+                    $uploadsPath = UPLOAD_PROJETOS . '/' . $projeto->id . '/imagens';
                     if (!is_dir($uploadsPath)) {
                         mkdir($uploadsPath, 0755, true);
                     }
                     $file_target_path = $uploadsPath . '/' . $file_name;
                     $file->moveTo($file_target_path);
+                }
+
+                // Salvar novos documentos (se enviados)
+                if (!empty($documentos)) {
+                    foreach ($documentos as $documento) {
+                        if ($documento && $documento->getError() === UPLOAD_ERR_OK) {
+                            $documento_name = $documento->getClientFilename();
+
+                            // Mantém o nome original
+                            $documentoEntity = $this->Projetos->Documentos->newEntity([
+                                'nome' => $documento_name,
+                                'projeto_id' => $projeto->id,
+                            ]);
+
+                            if ($this->Projetos->Documentos->save($documentoEntity)) {
+                                $uploadsPath = UPLOAD_PROJETOS . '/' . $projeto->id . '/documentos';
+                                if (!is_dir($uploadsPath)) {
+                                    mkdir($uploadsPath, 0755, true);
+                                }
+                                $doc_target_path = $uploadsPath . '/' . $documento_name;
+                                $documento->moveTo($doc_target_path);
+                            }
+                        }
+                    }
                 }
 
                 $this->Flash->success(__('Projeto atualizado com sucesso.'));
@@ -200,6 +263,7 @@ class ProjetosController extends AppController
 
         $this->set(compact('projeto', 'categorias'));
     }
+
 
     /**
      * Delete method
@@ -220,15 +284,17 @@ class ProjetosController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    public function validar($id){
+
+    public function validar($id)
+    {
         $projeto = $this->Projetos->get($id);
         $projeto->status = 1;
-        if ($this->Projetos->save($projeto)){
+        if ($this->Projetos->save($projeto)) {
             $this->Flash->success(__('Projeto Validado e concluido com sucesso!'));
-        }else{
+        } else {
             $this->Flash->error(__('Houve um erro ao validadr e concluir o projeto. Por favor tente novamente.'));
         }
-        return $this->redirect(['action' => 'view',$id]);
+        return $this->redirect(['action' => 'view', $id]);
 
     }
 
