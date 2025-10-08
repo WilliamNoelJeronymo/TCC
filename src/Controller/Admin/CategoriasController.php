@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Controller\AppController;
+use App\Controller\Admin\AppController;
 
 /**
  * Categorias Controller
@@ -49,11 +49,11 @@ class CategoriasController extends AppController
         if ($this->request->is('post')) {
             $categoria = $this->Categorias->patchEntity($categoria, $this->request->getData());
             if ($this->Categorias->save($categoria)) {
-                $this->Flash->success(__('The categoria has been saved.'));
+                $this->Flash->success(__('Categoria Salva com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The categoria could not be saved. Please, try again.'));
+            $this->Flash->error(__('Houve um erro ao salvar a categoria.'));
         }
         $projetos = $this->Categorias->Projetos->find('list', limit: 200)->all();
         $this->set(compact('categoria', 'projetos'));
@@ -72,11 +72,11 @@ class CategoriasController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $categoria = $this->Categorias->patchEntity($categoria, $this->request->getData());
             if ($this->Categorias->save($categoria)) {
-                $this->Flash->success(__('The categoria has been saved.'));
+                $this->Flash->success(__('Houve um erro ao salvar a categoria.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The categoria could not be saved. Please, try again.'));
+            $this->Flash->error(__('Categoria Salva com sucesso.'));
         }
         $projetos = $this->Categorias->Projetos->find('list', limit: 200)->all();
         $this->set(compact('categoria', 'projetos'));
@@ -94,9 +94,9 @@ class CategoriasController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $categoria = $this->Categorias->get($id);
         if ($this->Categorias->delete($categoria)) {
-            $this->Flash->success(__('The categoria has been deleted.'));
+            $this->Flash->success(__('Categoria Deletada com sucesso.'));
         } else {
-            $this->Flash->error(__('The categoria could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Houve um erro ao deletar a categoria.'));
         }
 
         return $this->redirect(['action' => 'index']);

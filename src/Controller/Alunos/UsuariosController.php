@@ -95,17 +95,37 @@ class UsuariosController extends AppController
         $this->viewBuilder()->disableAutoLayout();
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
-        // regardless of POST or GET, redirect if user is logged in
+
+        // 1. Verifica se o usuário foi autenticado com sucesso
         if ($result && $result->isValid()) {
-            // redirect to /articles after login success
+
+            // Obtém a identidade do usuário
+            $identity = $this->Authentication->getIdentity();
+
+            // 2. VERIFICAÇÃO DE AUTORIZAÇÃO: Checa se o grupo_id é 1
+            if ($identity->get('grupo_id') === 1) {
+
+                // 3. Ação de Bloqueio: Desloga o usuário imediatamente
+                $this->Authentication->logout();
+
+                $this->Flash->error(__('Você deve logar como aluno ou professor.'));
+
+                // Redireciona para a página de login ou para a home (sem acesso)
+                return $this->redirect(['controller' => 'Usuarios', 'action' => 'login']);
+            }
+
+            // SE CHEGOU AQUI: Usuário logou E tem grupo_id = 1 (ou outro grupo permitido)
+            $this->Flash->success(__('Logado com sucesso!'));
+
             $redirect = $this->request->getQuery('redirect', [
                 'controller' => 'Usuarios',
-                'action' => 'view',
+                'action' => 'index',
             ]);
-            $this->Flash->success(__('Logado com sucesso!'));
 
             return $this->redirect($redirect);
         }
+
+        // Trata falha de login (usuário ou senha incorretos)
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Usuário ou senha incorretos.'));
         }
@@ -121,6 +141,7 @@ class UsuariosController extends AppController
             return $this->redirect(['controller' => 'Usuarios', 'action' => 'login']);
         }
     }
+
     public function habilidades()
     {
         $user = $this->request->getAttribute('identity');
@@ -182,6 +203,7 @@ class UsuariosController extends AppController
 
         return $this->redirect($this->referer());
     }
+
     public function curriculo($id = null)
     {
         $usuario = $this->Usuarios->get($id, [

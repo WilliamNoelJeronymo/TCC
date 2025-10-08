@@ -10,6 +10,12 @@ namespace App\Controller\Admin;
  */
 class UsuariosController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['login']);
+    }
+
     /**
      * Index method
      *
@@ -33,6 +39,7 @@ class UsuariosController extends AppController
      */
     public function view($id = null)
     {
+        $this->viewBuilder()->disableAutoLayout();
         $usuario = $this->Usuarios->get($id, contain: ['Grupos']);
         $this->set(compact('usuario'));
     }
@@ -142,5 +149,56 @@ class UsuariosController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    public function login()
+    {
+        $this->viewBuilder()->disableAutoLayout();
+        $this->request->allowMethod(['get', 'post']);
+        $result = $this->Authentication->getResult();
+
+        // 1. Verifica se o usuário foi autenticado com sucesso
+        if ($result && $result->isValid()) {
+
+            // Obtém a identidade do usuário
+            $identity = $this->Authentication->getIdentity();
+
+            // 2. VERIFICAÇÃO DE AUTORIZAÇÃO: Checa se o grupo_id é 1
+            if ($identity->get('grupo_id') !== 1) {
+
+                // 3. Ação de Bloqueio: Desloga o usuário imediatamente
+                $this->Authentication->logout();
+
+                $this->Flash->error(__('Você não tem permissão de administrador.'));
+
+                // Redireciona para a página de login ou para a home (sem acesso)
+                return $this->redirect(['controller' => 'Usuarios', 'action' => 'login']);
+            }
+
+            // SE CHEGOU AQUI: Usuário logou E tem grupo_id = 1 (ou outro grupo permitido)
+            $this->Flash->success(__('Logado com sucesso!'));
+
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Usuarios',
+                'action' => 'view',
+            ]);
+
+            return $this->redirect($redirect);
+        }
+
+        // Trata falha de login (usuário ou senha incorretos)
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error(__('Usuário ou senha incorretos.'));
+        }
+    }
+
+    public function logout()
+    {
+        $result = $this->Authentication->getResult();
+        // regardless of POST or GET, redirect if user is logged in
+        if ($result && $result->isValid()) {
+            $this->Authentication->logout();
+
+            return $this->redirect(['controller' => 'Usuarios', 'action' => 'login']);
+        }
     }
 }

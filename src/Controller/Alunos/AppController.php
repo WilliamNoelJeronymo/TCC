@@ -49,20 +49,55 @@ class AppController extends Controller
 
     }
 
+//    public function beforeRender(\Cake\Event\EventInterface $event)
+//    {
+//        parent::beforeRender($event);
+//
+//        $Notificacoes = $this->fetchTable('Notificacoes');
+//
+//        $usuarioMenu = $this->Authentication->getIdentity();
+//        $minhasNotificacoes = null;
+//        if ($usuarioMenu) {
+//            $minhasNotificacoes = $Notificacoes
+//                ->find()
+//                ->where(['usuario_id_remetente' => $usuarioMenu->id])
+//                ->contain(['UsuariosEmissor', 'Funcoes' => 'Projetos']);
+//        }
+//
+//        $this->set(compact('usuarioMenu', 'minhasNotificacoes'));
+//    }
     public function beforeRender(\Cake\Event\EventInterface $event)
     {
         parent::beforeRender($event);
 
-        $Notificacoes = $this->fetchTable('Notificacoes');
-
         $usuarioMenu = $this->Authentication->getIdentity();
         $minhasNotificacoes = null;
+        $meusProjetos = null;
+
         if ($usuarioMenu) {
+            // 🔹 Tabela de notificações
+            $Notificacoes = $this->fetchTable('Notificacoes');
+
             $minhasNotificacoes = $Notificacoes
                 ->find()
                 ->where(['usuario_id_remetente' => $usuarioMenu->id])
-                ->contain(['UsuariosEmissor', 'Funcoes' => 'Projetos']);
+                ->contain(['UsuariosEmissor', 'Funcoes' => 'Projetos'])
+                ->orderBy(['Notificacoes.created' => 'DESC']);
+
+            // 🔹 Tabela de projetos (projetos em que o usuário participa)
+            $Projetos = $this->fetchTable('Projetos');
+
+            $meusProjetos = $Projetos->find()
+                ->distinct(['Projetos.id'])
+                ->matching('Funcoes.Usuarios', function ($q) use ($usuarioMenu) {
+                    return $q->where(['Usuarios.id' => $usuarioMenu->id]);
+                })
+                ->contain(['Categorias'])
+                ->orderBy(['Projetos.nome' => 'ASC'])
+                ->all();
         }
-        $this->set(compact('usuarioMenu', 'minhasNotificacoes'));
+
+        // Disponibiliza tudo para as views/layouts
+        $this->set(compact('usuarioMenu', 'minhasNotificacoes', 'meusProjetos'));
     }
 }

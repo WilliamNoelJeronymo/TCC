@@ -6,31 +6,16 @@
  * @var string[]|\Cake\Collection\CollectionInterface $usuarios
  */
 ?>
+<?= $this->Form->create($habilidade) ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $habilidade->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $habilidade->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Habilidades'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column column-80">
-        <div class="habilidades form content">
-            <?= $this->Form->create($habilidade) ?>
-            <fieldset>
-                <legend><?= __('Edit Habilidade') ?></legend>
-                <?php
-                    echo $this->Form->control('nome');
-                    echo $this->Form->control('funcoes._ids', ['options' => $funcoes]);
-                    echo $this->Form->control('usuarios._ids', ['options' => $usuarios]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+    <div class="col-md-12">
+        <div class="form-group">
+            <?= $this->Form->control('nome', ['class' => 'form-control']); ?>
         </div>
     </div>
 </div>
+<div class="text-right">
+    <?php echo $this->Html->link('Cancelar', ['action' => 'index'], ['class' => 'btn btn-default']); ?>
+    <button type="submit" class="btn btn-success">Adicionar</button>
+</div>
+<?= $this->Form->end() ?>

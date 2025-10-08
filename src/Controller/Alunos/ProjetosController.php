@@ -18,44 +18,79 @@ class ProjetosController extends AppController
     public function index()
     {
         $usuarioLogado = $this->request->getAttribute('identity');
+
         $categoriaId = $this->request->getQuery('categoria_id');
+        $funcaoId = $this->request->getQuery('vaga_funcao_id');
+        $nome = $this->request->getQuery('nome');
 
         $query = $this->Projetos->find()
             ->contain(['Funcoes.Usuarios', 'Categorias'])
             ->where(['Projetos.status' => 2]);
 
+        // Filtro por categoria
         if (!empty($categoriaId)) {
-            $query = $query->matching('Categorias', function ($q) use ($categoriaId) {
+            $query->matching('Categorias', function ($q) use ($categoriaId) {
                 return $q->where(['Categorias.id' => $categoriaId]);
             });
         }
 
+        // Filtro por nome do projeto
+        if (!empty($nome)) {
+            $query->where(function ($exp, $q) use ($nome) {
+                return $exp->like('Projetos.nome', '%' . $nome . '%');
+            });
+        }
+
+        // Filtro por vaga disponível (exclui líder e orientador)
+        if (!empty($funcaoId)) {
+            $query->matching('Funcoes', function ($q) use ($funcaoId) {
+                return $q->where([
+                    'Funcoes.id' => $funcaoId,
+                    'LOWER(Funcoes.nome) NOT IN' => ['líder', 'lider', 'orientador']
+                ]);
+            });
+        }
+
+        $query = $query->distinct(['Projetos.id']); // evita duplicados
+
         $projetos = $this->paginate($query);
 
+        // processa orientador e vagas (como você já faz)
         foreach ($projetos as $projeto) {
             $projeto->orientador = null;
             foreach ($projeto->funcoes as $funcao) {
                 if (strcasecmp($funcao->nome, 'Orientador') === 0) {
-                    $projeto->orientador = $funcao->usuarios[0]->nome;
+                    $projeto->orientador = $funcao->usuarios[0]->nome ?? null;
                     break;
                 }
             }
-            // Remove funções 'Líder' e 'Orientador'
+            $projeto->todasFuncoes = $projeto->funcoes;
+            // remove funções Líder e Orientador
             $projeto->funcoes = array_values(array_filter($projeto->funcoes, function ($funcao) {
                 return !in_array(strtolower($funcao->nome), ['líder', 'lider', 'orientador']);
             }));
 
-            // Calcula vagas disponíveis
+            // calcula vagas
             $projeto->total_vagas_disponiveis = 0;
             foreach ($projeto->funcoes as $funcao) {
                 $funcao->vagas_disponiveis = max(0, $funcao->quantidade - count($funcao->usuarios));
                 $projeto->total_vagas_disponiveis += $funcao->vagas_disponiveis;
             }
         }
-        $categorias = $this->Projetos->Categorias->find('list', ['keyField' => 'id', 'valueField' => 'nome'])->all();
-        $this->set(compact('projetos', 'categorias', 'usuarioLogado'));
-    }
 
+        $categorias = $this->Projetos->Categorias->find('list')->orderBy(['nome' => 'ASC'])->all();
+        $funcoes = $this->Projetos->Funcoes->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome'
+        ])
+            ->where(function ($exp, $q) {
+                return $exp->notIn('LOWER(Funcoes.nome)', ['líder', 'lider', 'orientador']);
+            })
+            ->orderBy(['nome' => 'ASC'])
+            ->all();
+
+        $this->set(compact('projetos', 'categorias', 'funcoes', 'usuarioLogado'));
+    }
 
     /**
      * View method

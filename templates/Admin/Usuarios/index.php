@@ -26,9 +26,9 @@
                 <td>
                     <div class="user-panel d-flex">
                         <div class="image">
-                            <?php if($usuario->foto): ?>
-                            <?= $this->Html->image('/uploads/alunos/' . $usuario->matricula . '/imagem_perfil/' . $usuario->foto,
-                                ['class' => 'img-circle elevation-2', 'alt' => 'user image']) ?>
+                            <?php if ($usuario->foto): ?>
+                                <?= $this->Html->image('/uploads/alunos/' . $usuario->matricula . '/imagem_perfil/' . $usuario->foto,
+                                    ['class' => 'img-circle elevation-2', 'alt' => 'user image']) ?>
                             <?php else: ?>
                                 <?= $this->Html->image('/img/default-user.jpg',
                                     ['class' => 'img-circle elevation-2', 'alt' => 'user image']) ?>
@@ -43,7 +43,6 @@
                     <?= $this->Html->link('<span class="fa fa-eye"></span>', ['action' => 'view', $usuario->id], ['escape' => false, 'class' => 'btn btn-default toolTipOpen', 'title' => 'Visualizar', 'data-toggle' => 'modal', 'data-target' => '.view']); ?>
                     <?= $this->Html->link('<span class="fas fa-pen"></span>', ['action' => 'edit', $usuario->id], ['escape' => false, 'class' => 'btn btn-default toolTipOpen', 'title' => 'Editar']); ?>
                     <?= $this->Form->postLink(('<span class="fa fa-trash"></span>'), ['action' => 'delete', $usuario->id], ['escape' => false, 'class' => 'btn btn-default toolTipOpen', 'title' => 'Deletar', 'confirm' => __('Você tem certeza que deseja deletar o usuário: {0}?', $usuario->nome)]) ?>
-                    <?= $this->Html->link('<i class="fas fa-lock"></i>', ['action' => 'alterar-senha', $usuario->id], ['escape' => false, 'class' => 'btn btn-default toolTipOpen', 'title' => 'Alterar senha', 'data-toggle' => 'modal', 'data-target' => '.view']) ?>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -29,7 +29,7 @@
     <div class="card-body d-flex justify-content-center align-items-center flex-column mt-0 pt-0">
         <div class="p-2 rounded w-100 text-center" style="background-color: #005da4; color: white">
             <?= $this->Flash->render() ?>
-            <span>Sistema de Autenticação</span></div>
+            <span>Sistema de Autenticação - Área Administrativa</span></div>
         <div class="mt-3">
             <?= $this->Form->create() ?>
             <div class="row">

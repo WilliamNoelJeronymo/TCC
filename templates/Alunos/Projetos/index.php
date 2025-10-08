@@ -5,11 +5,46 @@
  */
 ?>
 <?= $this->Form->create(null, ['type' => 'GET', 'url' => ['action' => 'index']]); ?>
-<div class="form-group">
-    <?php echo $this->Form->control('categoria_id', ['label' => 'Filtrar por categoria:', 'options' => $categorias, 'class' => 'mb-3 form-control', 'empty' => 'Selecione >>>', 'value' => $this->request->getQuery('segmentos_id')]); ?>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <?= $this->Form->control('categoria_id', [
+                'label' => 'Buscar por categoria:',
+                'options' => $categorias,
+                'class' => 'mb-3 form-control',
+                'empty' => 'Pesquisar...'
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <?= $this->Form->control('vaga_funcao_id', [
+                'label' => 'Buscar por Vaga disponível:',
+                'options' => $funcoes,
+                'class' => 'mb-3 form-control',
+                'empty' => 'Pesquisar...'
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <?= $this->Form->control('nome', [
+                'label' => 'Buscar Por Nome:',
+                'class' => 'mb-3 form-control',
+                'placeholder' => 'Pesquisar...',
+                'value' => $this->request->getQuery('nome')
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="col-md-2 d-flex justify-content-center align-items-center">
+        <?= $this->Html->link('Limpar', ['action' => 'index'], ['class' => 'btn btn-sm btn-secondary mr-2']) ?>
+        <button class="btn btn-sm btn-primary" type="submit">Filtrar</button>
+    </div>
 </div>
-<?php echo $this->Html->link('Limpar', ['action' => 'index'], ['class' => 'btn btn-sm btn-secondary']); ?>
-<button class="btn btn-sm btn-primary" type="submit">Filtrar</button>
+
 <?= $this->Form->end() ?>
 <div class="row">
     <?php foreach ($projetos as $projeto): ?>
@@ -59,24 +94,45 @@
                         </div>
                     <?php endforeach; ?>
                     <div class="d-flex justify-content-between">
-                        <p class="texto-menor text-blue"><?= $projeto->orientador ? 'Prof. ' . $projeto->orientador : 'Sem Orientador' ?></p>
-                        <?php if ($usuarioLogado->grupo_id == 2): ?>
+                        <p class="texto-menor text-blue">
+                            <?= $projeto->orientador ? 'Prof. ' . $projeto->orientador : 'Sem Orientador' ?>
+                        </p>
+
+                        <?php
+                        // Verifica se o usuário logado participa de alguma função deste projeto
+                        $usuarioParticipa = false;
+
+                        if (!empty($projeto->todasFuncoes)) {
+                            foreach ($projeto->todasFuncoes as $funcao) {
+                                if (!empty($funcao->usuarios)) {
+                                    foreach ($funcao->usuarios as $usuario) {
+                                        if ($usuario->id === $usuarioLogado->id) {
+                                            $usuarioParticipa = true;
+                                            break 2; // sai dos dois loops
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // Mostra o botão correto conforme o caso
+                        if ($usuarioLogado->grupo_id == 2): ?>
                             <?= $this->Html->link(
                                 'Orientar Projeto',
                                 ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
-                                [
-                                    'escape' => false,
-                                    'class' => 'btn btn-primary btn-sm ',
-                                ]
+                                ['class' => 'btn btn-primary btn-sm', 'escape' => false]
+                            ) ?>
+                        <?php elseif ($usuarioParticipa): ?>
+                            <?= $this->Html->link(
+                                'Visualizar',
+                                ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
+                                ['class' => 'btn btn-secondary btn-sm', 'escape' => false]
                             ) ?>
                         <?php else: ?>
                             <?= $this->Html->link(
                                 'Candidatar-se',
                                 ['controller' => 'Projetos', 'action' => 'view', $projeto->id],
-                                [
-                                    'escape' => false,
-                                    'class' => 'btn btn-primary btn-sm ',
-                                ]
+                                ['class' => 'btn btn-primary btn-sm', 'escape' => false]
                             ) ?>
                         <?php endif; ?>
                     </div>

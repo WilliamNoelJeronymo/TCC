@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller\Admin;
 
 use Cake\Controller\Controller;
@@ -42,11 +43,37 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('Flash');
+        $this->loadComponent('Authentication.Authentication');
+
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/5/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+    public function beforeRender(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeRender($event);
+
+        $usuarioMenu = $this->Authentication->getIdentity();
+        $meusProjetos = null;
+
+        if ($usuarioMenu) {
+            // 🔹 Tabela de notificações
+            $Projetos = $this->fetchTable('Projetos');
+
+            $meusProjetos = $Projetos->find()
+                ->distinct(['Projetos.id'])
+                ->matching('Funcoes.Usuarios', function ($q) use ($usuarioMenu) {
+                    return $q->where(['Usuarios.id' => $usuarioMenu->id]);
+                })
+                ->contain(['Categorias'])
+                ->orderBy(['Projetos.nome' => 'ASC'])
+                ->all();
+        }
+
+        // Disponibiliza tudo para as views/layouts
+        $this->set(compact('usuarioMenu', 'meusProjetos'));
     }
 }

@@ -12,17 +12,6 @@ $(document).ready(function () {
             }
         }
     });
-
-    tinymce.init({
-        selector: '.tiny',  // Inicializa apenas nos <textarea> visíveis
-        plugins: 'advlist autolink lists link image charmap print preview anchor',
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
-        menubar: false,
-        statusbar: false,
-        height: 300
-    });
-
-
     $(function () {
         $('#cadastroUsuarioAdmin').validate({
             rules: {
@@ -100,6 +89,7 @@ $(document).ready(function () {
         $(this).find('.modal-content').html('');
     });
 });
+
 function carregando() {
     var div = '<div class="modal-body">';
     div += '    <h3 style="text-align: center">';

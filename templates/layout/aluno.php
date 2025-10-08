@@ -115,9 +115,35 @@
                     <?php endforeach; ?>
                 </div>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <?= $this->Html->link($usuarioMenu->nome . '<i class="fas fa-external-link-alt"></i>', ['controller' => 'Usuarios', 'action' => 'logout'], ['escape' => false, 'class' => 'nav-link',]) ?>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?php
+                    $partesNome = explode(' ', trim($usuarioMenu->nome));
+                    $nomeExibicao = implode(' ', array_slice($partesNome, 0, 2));
+                    echo h($nomeExibicao);
+                    ?>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <?= $this->Html->link(
+                        '<i class="fas fa-user"></i> Ver Perfil',
+                        ['controller' => 'Usuarios', 'action' => 'view'.$usuarioMenu->id],
+                        ['escape' => false, 'class' => 'nav-link']
+                    ) ?>
+                    <?= $this->Html->link(
+                        '<i class="fas fa-key mr-2"></i> Trocar senha',
+                        ['controller' => 'Usuarios', 'action' => 'trocarSenha'],
+                        ['class' => 'dropdown-item', 'escape' => false]
+                    ) ?>
+                    <div class="dropdown-divider"></div>
+                    <?= $this->Html->link(
+                        '<i class="fas fa-sign-out-alt mr-2"></i> Sair',
+                        ['controller' => 'Usuarios', 'action' => 'logout'],
+                        ['class' => 'dropdown-item text-danger', 'escape' => false]
+                    ) ?>
+                </div>
             </li>
+
         </ul>
     </nav>
     <!-- /.navbar -->
