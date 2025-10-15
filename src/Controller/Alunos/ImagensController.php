@@ -88,16 +88,16 @@ class ImagensController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id, $projeto_id)
     {
         $this->request->allowMethod(['post', 'delete']);
         $imagen = $this->Imagens->get($id);
         if ($this->Imagens->delete($imagen)) {
-            $this->Flash->success(__('The imagen has been deleted.'));
+            $this->Flash->success(__('Imagem excluida com sucesso.'));
         } else {
-            $this->Flash->error(__('The imagen could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Houve um erro ao tentar excluir a imagem, por favor tente novamente'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller'=>'Projetos','action' => 'edit',$projeto_id]);
     }
 }

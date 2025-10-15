@@ -9,6 +9,7 @@
             ]); ?>
         </div>
     </div>
+
     <div class="col-md-6">
         <div class="form-group">
             <?= $this->Form->control('nome', [
@@ -17,6 +18,9 @@
             ]); ?>
         </div>
     </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <?= $this->Form->control('imagem', [
             'label' => 'Banner para divulgação do projeto',
@@ -25,7 +29,9 @@
             'required' => false
         ]); ?>
     </div>
+</div>
 
+<div class="row">
     <div class="col-md-12">
         <div class="form-group">
             <?= $this->Form->control('objetvo', [
@@ -34,6 +40,9 @@
             ]); ?>
         </div>
     </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <div class="form-group">
             <?= $this->Form->control('descricao', [
@@ -42,10 +51,13 @@
             ]); ?>
         </div>
     </div>
+</div>
 
+<div class="row">
     <div class="col-md-12">
         <div class="alert alert-info" role="alert">
-            Não é necessário a documentação do projeto para a criação, pois deverá ser preenchida conforme o avanço do projeto
+            Não é necessário a documentação do projeto para a criação, pois deverá ser preenchida conforme o avanço do
+            projeto
         </div>
         <div class="form-group">
             <?= $this->Form->control('texto', [
@@ -54,38 +66,62 @@
             ]); ?>
         </div>
     </div>
+</div>
 
+<div class="row">
     <div class="col-md-12">
-        <label>Documentos do Projeto</label>
+        <span> <strong>Documentos do Projeto</strong></span>
         <?= $this->Form->control('documentos[]', [
             'type' => 'file',
             'multiple' => true,
             'label' => false,
             'class' => 'form-control file-upload'
         ]); ?>
-
         <?php if (!empty($projeto->documentos)): ?>
             <ul class="list-group mt-2">
                 <?php foreach ($projeto->documentos as $doc): ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <?= h($doc->nome) ?>
+                        <span><?= h($doc->nome) ?></span>
                         <span>
-                            <?= $this->Html->link('Baixar', '/uploads/projetos/' . $projeto->id . '/documentos/' . $doc->nome, [
-                                'class' => 'btn btn-sm btn-primary',
-                                'target' => '_blank'
-                            ]) ?>
-                            <?= $this->Form->postLink('Excluir', [
-                                'controller' => 'Documentos',
-                                'action' => 'delete',
-                                $doc->id
-                            ], [
-                                'confirm' => 'Tem certeza que deseja excluir este documento?',
-                                'class' => 'btn btn-sm btn-danger'
-                            ]) ?>
-                        </span>
+                        <a href="<?= $this->Url->build("/uploads/projetos/" . $projeto->id . "/documentos/" . $doc->nome) ?>"
+                           target="_blank" class="btn btn-sm btn-primary">
+                            Baixar
+                        </a>
+                        <?= $this->Form->postLink(__('Excluir'), ['controller' => 'Documentos', 'action' => 'delete', $doc->id], ['class' => 'btn btn-sm btn-danger', 'confirm' => __('VocÊ tem certeza que quer deletar o documento: {0}?', $doc->id)]) ?>
+                            </span>
                     </li>
                 <?php endforeach; ?>
             </ul>
+        <?php endif; ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mt-4">
+        <label>Galeria de Imagens</label>
+        <?= $this->Form->control('imagens[]', [
+            'type' => 'file',
+            'multiple' => true,
+            'label' => false,
+            'class' => 'form-control file-upload'
+        ]); ?>
+
+        <?php if (!empty($projeto->imagens)): ?>
+            <div class="row mt-3">
+                <?php foreach ($projeto->imagens as $img): ?>
+                    <div class="col-md-3 mb-3 text-center">
+                        <div class="card">
+                            <img
+                                src="<?= $this->Url->build('/uploads/projetos/' . $projeto->id . '/galeria/' . $img->nome) ?>"
+                                class="card-img-top img-fluid"
+                                style="max-height: 150px; object-fit: cover;">
+                            <div class="card-body p-2">
+                                <?= $this->Form->postLink(__('Excluir'), ['controller' => 'Imagens', 'action' => 'delete', $img->id, $projeto->id], ['class' => 'btn btn-sm w-100 btn-danger', 'confirm' => __('VocÊ tem certeza que quer deletar o imagem: {0}?', $img->id)]) ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
     </div>
 </div>
@@ -96,7 +132,6 @@
 </div>
 
 <?= $this->Form->end() ?>
-
 <script>
     $(".file-upload-edit").fileinput({
         showUpload: false,
@@ -108,14 +143,14 @@
         browseLabel: 'Selecionar Imagem',
         removeLabel: 'Remover',
         initialPreviewAsData: true,
-        <?php if($projeto->banner): ?>
+        <?php if ($projeto->banner): ?>
         initialPreview: [
             <?= json_encode($this->Url->build('/uploads/projetos/' . $projeto->id . '/imagens/' . $projeto->banner)) ?>
         ],
         initialPreviewConfig: [
-            { caption: <?= json_encode($projeto->banner) ?>, key: 1, showRemove: false }
+            {caption: <?= json_encode($projeto->banner) ?>, key: 1, showRemove: false}
         ],
-        <?php else:?>
+        <?php else: ?>
         initialPreview: [
             <?= json_encode($this->Url->build('/img/default-project.jpg')) ?>
         ],

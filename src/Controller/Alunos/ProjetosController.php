@@ -225,18 +225,16 @@ class ProjetosController extends AppController
      */
     public function edit($id = null)
     {
-        $projeto = $this->Projetos->get($id, contain: ['Categorias', 'Documentos']);
+        $projeto = $this->Projetos->get($id, contain: ['Categorias', 'Documentos', 'Imagens']);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
 
             $file = $data['imagem'] ?? null;
             $documentos = $data['documentos'] ?? [];
+            $imagens = $data['imagens'] ?? [];
 
-            // Preserva o banner se nenhum novo for enviado
-            if (!$file || $file->getError() !== UPLOAD_ERR_OK) {
-                unset($data['imagem']);
-            }
+            unset($data['imagem'], $data['documentos'], $data['imagens']);
 
             $projeto = $this->Projetos->patchEntity($projeto, $data);
 
@@ -260,18 +258,15 @@ class ProjetosController extends AppController
                     $file->moveTo($file_target_path);
                 }
 
-                // Salvar novos documentos (se enviados)
+                // Salvar novos documentos
                 if (!empty($documentos)) {
                     foreach ($documentos as $documento) {
                         if ($documento && $documento->getError() === UPLOAD_ERR_OK) {
                             $documento_name = $documento->getClientFilename();
-
-                            // Mantém o nome original
                             $documentoEntity = $this->Projetos->Documentos->newEntity([
                                 'nome' => $documento_name,
                                 'projeto_id' => $projeto->id,
                             ]);
-
                             if ($this->Projetos->Documentos->save($documentoEntity)) {
                                 $uploadsPath = UPLOAD_PROJETOS . '/' . $projeto->id . '/documentos';
                                 if (!is_dir($uploadsPath)) {
@@ -284,18 +279,38 @@ class ProjetosController extends AppController
                     }
                 }
 
+                // Salvar novas imagens da galeria
+                if (!empty($imagens)) {
+                    foreach ($imagens as $imagem) {
+                        if ($imagem && $imagem->getError() === UPLOAD_ERR_OK) {
+                            $img_name = $imagem->getClientFilename();
+                            $img_extension = pathinfo($img_name, PATHINFO_EXTENSION);
+                            $img_hash = md5($img_name . time()) . '.' . $img_extension;
+
+                            $imagemEntity = $this->Projetos->Imagens->newEntity([
+                                'nome' => $img_hash,
+                                'projeto_id' => $projeto->id,
+                            ]);
+
+                            if ($this->Projetos->Imagens->save($imagemEntity)) {
+                                $uploadsPath = UPLOAD_PROJETOS . '/' . $projeto->id . '/galeria';
+                                if (!is_dir($uploadsPath)) {
+                                    mkdir($uploadsPath, 0755, true);
+                                }
+                                $img_target_path = $uploadsPath . '/' . $img_hash;
+                                $imagem->moveTo($img_target_path);
+                            }
+                        }
+                    }
+                }
+
                 $this->Flash->success(__('Projeto atualizado com sucesso.'));
                 return $this->redirect(['action' => 'view', $projeto->id]);
             }
 
             $this->Flash->error(__('Erro ao atualizar o projeto.'));
         }
-
-        $categorias = $this->Projetos->Categorias->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'nome'
-        ])->orderBy(['nome' => 'ASC'])->all();
-
+        $categorias = $this->Projetos->Categorias->find('list');
         $this->set(compact('projeto', 'categorias'));
     }
 
