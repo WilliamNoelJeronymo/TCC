@@ -24,7 +24,7 @@
         '/AdminLTE/dist/css/adminlte.min',
         'style.css',
     ]) ?>
-
+    <?= $this->Html->css('https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css') ?>
     <?= $this->Html->script([
         '/AdminLTE/plugins/jquery/jquery.min',
         '/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min',
@@ -43,10 +43,13 @@
         'https://cdn.tiny.cloud/1/3errq3isnlr2wkbsq1xxgu2anwygdc42295w2utyt2d3iznd/tinymce/7/tinymce.min.js',
         'scripts',
     ]) ?>
+    <?= $this->Html->script('https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')) ?>
+
 </head>
 <body>
 <!-- Site wrapper -->

@@ -119,7 +119,7 @@ class UsuariosController extends AppController
 
             $redirect = $this->request->getQuery('redirect', [
                 'controller' => 'Usuarios',
-                'action' => 'index',
+                'action' => 'view',
             ]);
 
             return $this->redirect($redirect);

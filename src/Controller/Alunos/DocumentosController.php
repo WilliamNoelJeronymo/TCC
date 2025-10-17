@@ -90,14 +90,21 @@ class DocumentosController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $documento = $this->Documentos->get($id);
-        if ($this->Documentos->delete($documento)) {
-            $this->Flash->success(__('The documento has been deleted.'));
+        $this->request->allowMethod(['post', 'ajax']);
+        $this->viewBuilder()->setClassName('Json');
+
+        $doc = $this->Documentos->get($id);
+        $success = false;
+        $mensagem = '';
+
+        if ($this->Documentos->delete($doc)) {
+            $success = true;
+            $mensagem = 'Documento excluído com sucesso.';
         } else {
-            $this->Flash->error(__('The documento could not be deleted. Please, try again.'));
+            $mensagem = 'Erro ao excluir o documento.';
         }
 
-        return $this->redirect(['action' => 'index']);
+        $this->set(compact('success', 'mensagem'));
+        $this->viewBuilder()->setOption('serialize', ['success', 'mensagem']);
     }
 }
