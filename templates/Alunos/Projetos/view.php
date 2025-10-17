@@ -157,7 +157,7 @@
                         </div>
                         <div>
                             <?= $this->Html->link('<i class="fas fa-download"></i>',
-                                '/files/documentos/' . h($doc->arquivo),
+                                '/uploads/projetos/' . $projeto->id . '/documentos/' . h($doc->nome),
                                 ['escape' => false, 'class' => 'btn btn-sm btn-outline-primary', 'download' => true]
                             ) ?>
                         </div>
@@ -170,10 +170,10 @@
 <script>
     // Usa um listener para garantir que o Fancybox só seja executado
     // DEPOIS que todos os elementos HTML (como a galeria) foram carregados.
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         Fancybox.bind('[data-fancybox="galeria"]', {
-            Thumbs: { autoStart: true },
-            Toolbar: { display: ["zoom", "close"] },
+            Thumbs: {autoStart: true},
+            Toolbar: {display: ["zoom", "close"]},
             hideScrollbar: false,
             animated: true,
             trapFocus: true,

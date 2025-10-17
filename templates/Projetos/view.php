@@ -106,20 +106,58 @@
             <div class="card">
                 <div class="card-body">
                     <h4><i class="fas fa-user"></i> Orientador</h4>
-                    <p>Prof. <?= h($projeto->orientador) ?></p>
+                    <p><?= $projeto->orientador ? 'Prof. ' . h($projeto->orientador) : 'O projeto não possuí um orientador' ?></p>
                 </div>
             </div>
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h4><i class="fas fa-file-alt"></i> Documentos</h4>
-                    <?php foreach ($projeto->documentos as $documento): ?>
-                        <p>
-                            <i class="fa-fw fas fa-file-invoice texto-azul-claro"></i>
-                            <?= h($documento->nome) ?>
-                        </p>
+            <?php if ($projeto->documentos): ?>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h4><i class="fas fa-file-alt"></i> Documentos</h4>
+                        <?php foreach ($projeto->documentos as $documento): ?>
+                            <?= $this->Html->link($documento->nome . ' <i class="fas fa-download"></i>',
+                                '/uploads/projetos/' . $projeto->id . '/documentos/' . h($documento->nome),
+                                ['escape' => false, 'class' => 'btn btn-sm btn-outline-primary w-100 mt-4', 'target' => '_blank']
+                            ) ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($projeto->imagens)): ?>
+                <h4><i class="far fa-images"></i> Galeria de Imagens</h4>
+                <div class="d-flex flex-wrap gap-3">
+                    <?php foreach ($projeto->imagens as $imagem): ?>
+                        <?php
+                        $urlImagem = $this->Url->build('/uploads/projetos/' . $projeto->id . '/galeria/' . $imagem->nome, ['fullBase' => true]);
+                        ?>
+                        <div class="position-relative border rounded shadow-sm"
+                             style="width:180px; height:120px; overflow:hidden;">
+                            <a data-fancybox="galeria"
+                               href="<?= $urlImagem ?>">
+                                <img src="<?= $urlImagem ?>"
+                                     alt="Imagem do Projeto"
+                                     class="img-fluid w-100 h-100"
+                                     style="object-fit:cover;">
+                            </a>
+                        </div>
                     <?php endforeach; ?>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
+<script>
+    // Usa um listener para garantir que o Fancybox só seja executado
+    // DEPOIS que todos os elementos HTML (como a galeria) foram carregados.
+    document.addEventListener("DOMContentLoaded", function () {
+        Fancybox.bind('[data-fancybox="galeria"]', {
+            Thumbs: {autoStart: true},
+            Toolbar: {display: ["zoom", "close"]},
+            hideScrollbar: false,
+            animated: true,
+            trapFocus: true,
+            groupAll: true,
+            // type: "image", // Recomendado remover, pois deduz do href
+        });
+    });
+</script>

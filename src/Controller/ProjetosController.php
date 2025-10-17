@@ -25,7 +25,9 @@ class ProjetosController extends AppController
                 return $q->where(['Categorias.id' => $categoriaId]);
             });
         }
-
+        $projetosAtivos = $query->where(['status' => 2])->count();
+        $projetosconcluidos = $query->where(['status' => 1])->count();
+        $alunosAtivos = $this->Projetos->Funcoes->Usuarios->find()->all()->count();
         $projetos = $this->paginate($query);
 
         foreach ($projetos as $projeto) {
@@ -37,8 +39,10 @@ class ProjetosController extends AppController
                 }
             }
         }
+        pr($projetos);
+        exit();
 
-        $this->set(compact('projetos'));
+        $this->set(compact('projetos', 'projetosAtivos', 'projetosconcluidos', 'alunosAtivos'));
     }
 
     /**
@@ -50,7 +54,7 @@ class ProjetosController extends AppController
      */
     public function view($id = null)
     {
-        $projeto = $this->Projetos->get($id, contain: ['Documentos', 'Imagens','Funcoes.Usuarios','Categorias']);
+        $projeto = $this->Projetos->get($id, contain: ['Documentos', 'Imagens', 'Funcoes.Usuarios', 'Categorias']);
         $projeto->orientador = null;
         foreach ($projeto->funcoes as $funcao) {
             if (strcasecmp($funcao->nome, 'Orientador') === 0) {
