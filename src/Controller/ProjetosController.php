@@ -17,33 +17,41 @@ class ProjetosController extends AppController
      */
     public function index()
     {
-        $query = $this->Projetos->find()
+        $baseQuery = $this->Projetos->find()
             ->contain(['Funcoes.Usuarios', 'Categorias']);
 
+        // Caso haja filtro por categoria
         if (!empty($categoriaId)) {
-            $query = $query->matching('Categorias', function ($q) use ($categoriaId) {
+            $baseQuery = $baseQuery->matching('Categorias', function ($q) use ($categoriaId) {
                 return $q->where(['Categorias.id' => $categoriaId]);
             });
         }
-        $projetosAtivos = $query->where(['status' => 2])->count();
-        $projetosconcluidos = $query->where(['status' => 1])->count();
-        $alunosAtivos = $this->Projetos->Funcoes->Usuarios->find()->all()->count();
-        $projetos = $this->paginate($query);
+
+        // Cria cópias separadas da query base
+        $queryAtivos = clone $baseQuery;
+        $queryConcluidos = clone $baseQuery;
+        $queryPrincipal = clone $baseQuery;
+
+        $projetosAtivos = $queryAtivos->where(['Projetos.status' => 2])->count();
+        $projetosConcluidos = $queryConcluidos->where(['Projetos.status' => 1])->count();
+
+        $alunosAtivos = $this->Projetos->Funcoes->Usuarios->find()->count();
+
+        $projetos = $this->paginate($queryPrincipal);
 
         foreach ($projetos as $projeto) {
             $projeto->orientador = null;
             foreach ($projeto->funcoes as $funcao) {
-                if (strcasecmp($funcao->nome, 'Orientador') === 0) {
+                if (strcasecmp($funcao->nome, 'Orientador') === 0 && !empty($funcao->usuarios)) {
                     $projeto->orientador = $funcao->usuarios[0]->nome;
                     break;
                 }
             }
         }
-        pr($projetos);
-        exit();
 
-        $this->set(compact('projetos', 'projetosAtivos', 'projetosconcluidos', 'alunosAtivos'));
+        $this->set(compact('projetos', 'projetosAtivos', 'projetosConcluidos', 'alunosAtivos'));
     }
+
 
     /**
      * View method

@@ -268,4 +268,29 @@ class FuncoesController extends AppController
         }
     }
 
+    public function removerMembro($user_id, $projeto_id)
+    {
+        $funcoesIds = $this->Funcoes
+            ->find()
+            ->matching('Projetos', function ($q) use ($projeto_id) {
+                return $q->where(['Projetos.id' => $projeto_id]);
+            })
+            ->select('Funcoes.id')
+            ->enableHydration(false)
+            ->select(['Funcoes.id'])
+            ->toArray();
+pr($funcoesIds);
+exit();
+
+        $this->Funcoes->UsuariosFuncoes->deleteAll([
+            'usuario_id' => $user_id,
+            'funcao_id IN' => $funcoesIds
+        ]);
+
+        $this->Flash->success('Membro removido do projeto com sucesso.');
+
+        return $this->redirect($this->referer());
+    }
+
+
 }

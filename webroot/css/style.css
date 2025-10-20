@@ -192,3 +192,68 @@ input:checked + .slider:before {
 .card-projetos {
     min-height: 580px;
 }
+/* Container principal para centralizar e remover margens padrão */
+.pagination {
+    margin-top: 0;
+    margin-bottom: 0;
+    /* Adiciona um pequeno espaçamento entre os itens, se necessário */
+    gap: 5px;
+}
+
+/* Estilo para todos os links da paginação (incluindo números e ícones) */
+.pagination .page-link {
+    /* Cor do texto: Azul escuro para contraste */
+    color: #007bff;
+    /* Remove a borda padrão do Bootstrap */
+    border: none;
+    /* Remove o raio de borda grande - usaremos o page-link-pill */
+    border-radius: 0;
+    /* Transição suave para hover */
+    transition: background-color 0.2s, color 0.2s;
+    /* Tamanho do texto */
+    font-size: 1rem;
+    /* Padding para os links */
+    padding: 0.5rem 0.75rem;
+}
+
+/* Classe customizada para o estilo "pílula" */
+.pagination .page-link-pill {
+    /* Borda totalmente arredondada para o estilo "pílula" */
+    border-radius: 50px !important;
+}
+
+
+/* Estado Hover para todos os links */
+.pagination .page-link-pill:hover,
+    /* Foco para acessibilidade */
+.pagination .page-link-pill:focus {
+    /* Cor de fundo com uma opacidade do azul primário (ou o azul principal do seu tema) */
+    background-color: rgba(0, 123, 255, 0.1);
+    /* Cor do texto */
+    color: #007bff;
+    /* Mantém a sombra de foco padrão do Bootstrap se não for removida globalmente */
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Estilo para a página ATIVA */
+.pagination .page-item.active .page-link {
+    /* O uso de bg-primary no HTML já deve cuidar disso, mas garante o estilo. */
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+    color: #fff !important;
+    /* Remove a sombra que o Bootstrap pode adicionar ao link ativo */
+    box-shadow: none;
+}
+
+/* Estilo para links desabilitados */
+.pagination .page-item.disabled .page-link {
+    color: #adb5bd; /* Um cinza mais suave */
+    background-color: transparent;
+    cursor: not-allowed;
+}
+
+/* Remove o hover do item desabilitado */
+.pagination .page-item.disabled .page-link:hover {
+    background-color: transparent;
+}
+

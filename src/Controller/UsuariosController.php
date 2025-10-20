@@ -139,4 +139,6 @@ class UsuariosController extends AppController
             ->withDownload("curriculo_{$usuario->nome}.pdf");
     }
 
+
+
 }

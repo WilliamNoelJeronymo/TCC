@@ -69,27 +69,7 @@
             <!-- Links -->
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <?= $this->Html->link(
-                            'Projetos',
-                            ['controller' => 'Projetos', 'action' => 'index'],
-                            ['class' => 'nav-link']
-                        ) ?>
-                    </li>
-                    <li class="nav-item">
-                        <?= $this->Html->link(
-                            'Notícias',
-                            ['controller' => 'Pages', 'action' => 'noticias'],
-                            ['class' => 'nav-link']
-                        ) ?>
-                    </li>
-                    <li class="nav-item">
-                        <?= $this->Html->link(
-                            'Faculdade',
-                            ['controller' => 'Pages', 'action' => 'faculdade'],
-                            ['class' => 'nav-link']
-                        ) ?>
-                    </li>
+                    <?=$this->element('menu_publico')?>
                 </ul>
 
                 <!-- Botão login -->
@@ -119,7 +99,8 @@
             <div class="col-md-2"></div>
             <div class="col-md-4">
                 <h4> Contato</h4>
-                <p class="fw-lighter"><i class="fas fa-fw fa-map-pin"></i>Av. Getúlio Vargas 335, Quitandinha,<br> Petrópolis, RJ, 25651-075</p>
+                <p class="fw-lighter"><i class="fas fa-fw fa-map-pin"></i>Av. Getúlio Vargas 335, Quitandinha,<br>
+                    Petrópolis, RJ, 25651-075</p>
                 <p class="fw-lighter"><i class="fas fa-fw fa-envelope"></i> contato@faeterj-petropolis.edu.br</p>
                 <p class="fw-lighter"><i class="fas fa-fw fa-phone"></i> (24) 2244-1100</p>
             </div>
