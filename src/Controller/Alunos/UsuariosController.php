@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Alunos;
 
+use Cake\Collection\Collection;
+
 /**
  * Usuarios Controller
  *
@@ -18,19 +20,22 @@ class UsuariosController extends AppController
 
     public function membros($projeto_id)
     {
-        // Buscando todos os usuários com suas funções associadas ao projeto
         $usuarios = $this->Usuarios->find()
             ->contain(['Grupos', 'Funcoes' => function ($q) use ($projeto_id) {
-                return $q->where(['Funcoes.projetos_id' => $projeto_id]); // Filtra as funções pelo projeto_id
+                return $q->where(['Funcoes.projetos_id' => $projeto_id]);
             }])
-            ->all(); // Retorna todos os usuários
+            ->all();
 
-        // Buscando o projeto específico pelo id
+        $usuarios = (new Collection($usuarios))
+            ->filter(function ($usuario) {
+                return !empty($usuario->funcoes);
+            })
+            ->toArray();
+
         $projeto = $this->Usuarios->Funcoes->Projetos->find()
             ->where(['Projetos.id' => $projeto_id])
             ->first();
 
-        // Passando as variáveis para a view
         $this->set(compact('usuarios', 'projeto'));
     }
 

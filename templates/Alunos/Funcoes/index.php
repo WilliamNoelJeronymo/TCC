@@ -5,7 +5,7 @@
  */
 ?>
 <div class="funcoes index content">
-    <?= $this->Html->link(__('Criar Nova Função'), ['action' => 'add',$projeto_id], ['class' => 'btn btn-primary float-right']) ?>
+    <?= $this->Html->link(__('Criar Nova Função'), ['action' => 'add', $projeto_id], ['class' => 'btn btn-primary float-right']) ?>
     <h3><?= __('Funcoes') ?></h3>
     <div class="table-responsive">
         <table class="table table-striped">
@@ -22,11 +22,32 @@
                     <td><?= h($funco->nome) ?></td>
                     <td> <span
                             class="<?= $funco->total_usuarios == $funco->quantidade ? 'text-success' : 'text-primary' ?>"><i
-                                class="fas fa-users"></i> <?= $funco->total_usuarios ?> / <?= $funco->quantidade ?></span></td>
+                                class="fas fa-users"></i> <?= $funco->total_usuarios ?> / <?= $funco->quantidade ?></span>
+                    </td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $funco->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $funco->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $funco->id], ['confirm' => __('Are you sure you want to delete # {0}?', $funco->id)]) ?>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <?= $this->Html->link('<i class="fas fa-eye"></i>', ['action' => 'view', $funco->id], [
+                                'escape' => false,
+                                'class' => 'btn btn-outline-primary',
+                                'title' => 'Visualizar',
+                                'data-tooltip' => 'tooltip',
+                                'data-toggle' => 'modal',
+                                'data-target' => '.view'
+                            ]) ?>
+                            <?= $this->Html->link('<i class="fas fa-edit"></i>', ['action' => 'edit', $funco->id], [
+                                'escape' => false,
+                                'class' => 'btn btn-outline-secondary',
+                                'title' => 'Editar',
+                                'data-toggle' => 'tooltip',
+                            ]) ?>
+                            <?= $this->Form->postLink('<i class="fas fa-trash-alt"></i>', ['action' => 'delete', $funco->id], [
+                                'escape' => false,
+                                'class' => 'btn btn-outline-danger',
+                                'confirm' => __('Deseja realmente excluir # {0}?', $funco->id),
+                                'title' => 'Excluir',
+                                'data-toggle' => 'tooltip',
+                            ]) ?>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
