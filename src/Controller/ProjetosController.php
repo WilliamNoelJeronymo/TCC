@@ -62,11 +62,22 @@ class ProjetosController extends AppController
      */
     public function view($id = null)
     {
-        $projeto = $this->Projetos->get($id, contain: ['Documentos', 'Imagens', 'Funcoes.Usuarios', 'Categorias']);
+        $projeto = $this->Projetos->get($id, contain: [
+            'Documentos',
+            'Imagens',
+            'Funcoes.Usuarios',
+            'Categorias'
+        ]);
+
         $projeto->orientador = null;
+
         foreach ($projeto->funcoes as $funcao) {
             if (strcasecmp($funcao->nome, 'Orientador') === 0) {
-                $projeto->orientador = $funcao->usuarios[0]->nome;
+
+                if (!empty($funcao->usuarios)) {
+                    $projeto->orientador = $funcao->usuarios[0]->nome;
+                }
+
                 break;
             }
         }
