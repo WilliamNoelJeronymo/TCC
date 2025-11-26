@@ -130,13 +130,8 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <?= $this->Html->link(
                         '<i class="fas fa-user"></i> Ver Perfil',
-                        ['controller' => 'Usuarios', 'action' => 'view'.$usuarioMenu->id],
+                        ['controller' => 'Usuarios', 'action' => 'view',$usuarioMenu->id],
                         ['escape' => false, 'class' => 'nav-link']
-                    ) ?>
-                    <?= $this->Html->link(
-                        '<i class="fas fa-key mr-2"></i> Trocar senha',
-                        ['controller' => 'Usuarios', 'action' => 'trocarSenha'],
-                        ['class' => 'dropdown-item', 'escape' => false]
                     ) ?>
                     <div class="dropdown-divider"></div>
                     <?= $this->Html->link(
